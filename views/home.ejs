@@ -1,0 +1,29 @@
+<% include ./partials/headerOpen %>
+
+<link rel="stylesheet" type="text/css" href="/stylesheets/home-styles.css">
+
+<% include ./partials/headerClose %>
+
+<div class="full-height flex-center">
+  <a class="flow-text landing-link" href="/blog">Blogs</a>
+  <a class="flow-text landing-link demo-dropdown" href="#!">Demos</a>
+  <!-- Cascade dropdown -->
+  <div class="slide-out">
+    <div class="flex-center">
+      <a class="flow-text landing-link" href="/code"><i class="material-icons">chevron_right</i> Scribl-Er</a>
+      <a class="flow-text landing-link" href="/product"><i class="material-icons">chevron_right</i> Product</a>
+    </div>
+  </div>
+</div>
+
+<% include ./partials/jquery %>
+
+<script>
+  $(document).ready(function(){
+    $(".demo-dropdown").on("click", function(){
+      $(".slide-out").slideToggle();
+    });
+  });
+</script>
+
+<% include ./partials/footer %>

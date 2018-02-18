@@ -1,0 +1,58 @@
+<% include ../partials/headerOpen %>
+
+<link rel="stylesheet" type="text/css" href="/stylesheets/codeStyles/code-styles.css">
+
+<% include ../partials/headerClose %>
+<% include ../partials/navbar-main %>
+
+<main>
+  <div id="html-viewer"></div>
+  <hr>
+  <div id="code-container">
+    <div class="container">
+      <div class="input-field">
+        <textarea id="code-console" class="materialize-textarea" name="code"></textarea>
+        <label for="code-console">Code</label>
+      </div>
+      <div class="input-field">
+        <textarea id="console-output" class="materialize-textarea"></textarea>
+        <label for="code-output">HTML</label>
+      </div>
+      <div>
+        <a class="btn modal-trigger space-right" href="#help-text">Help</a>
+        <input id="restrict" type="checkbox" checked>
+        <label for="restrict">Restrict</label>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Help Modal -->
+<div id="help-text" class="modal">
+  <div class="modal-content">
+    <h4>Instructions</h4>
+    <h5>How to write Scribl-Er</h5>
+    <p>Welcome to writing Scribl-Er. If you know how to write HTML, then you know Scribl-Er. All you need now is the syntax.</p>
+    <p>The concept is the same as putting Python and HTML together. There are no brackets and white-space is important. Every tag is followed with a colon [:] and all displayed text is surrounded by double quotes ["]. Inline tags, such as spans, can be pushed inline using double parentheses [((span))]. To enclose tags inside of other tags, indent using the tab key. To force close a tag, you can use the semi-colon [;].</p>
+    <p><strong>Example</strong></p>
+    <code>
+      <p>
+        <span>div id="main-content":</span><br>
+        <span style="margin-left: 20px">h1: "Example Heading"</span><br>
+        <span style="margin-left: 20px">hr:</span><br>
+        <span style="margin-left: 20px">div id="example-code":</span><br>
+          <span style="margin-left: 40px">p class="center-align":</span><br>
+            <span style="margin-left: 60px">"This is some example text to show off Scribl-Er. You can use ((em: "inline")) characters to contain tags and text. You could also use syntax " strong: "like this"; " to also inline content."</span><br>
+        <span style="margin-left: 20px">p: "Just remember that white-space is important. This content is not contained with the #example-code div."</span><br>
+      </p>
+    </code>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect btn-flat">Close</a>
+  </div>
+</div>
+
+<% include ../partials/copyright %>
+<% include ../partials/jquery %>
+<% include ../partials/ern-lang %>
+<% include ../partials/footer %>

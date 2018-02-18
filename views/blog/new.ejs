@@ -1,0 +1,22 @@
+<% include ../partials/headerOpen %>
+
+<% include ../partials/headerClose %>
+<% include ../partials/popupmenu %>
+
+<form action="/blog" method="POST">
+    <div class="container tb-margin">
+        <header class="panel-top bg-darker">
+            <label class="txt-accent">Title</label>
+            <input type="text" name="blogpost[title]" placeholder="create a title">
+        </header>
+        
+        <main class="panel-bottom bg-accent">
+            <label>Content</label>
+            <textarea name="blogpost[content]" placeholder="enter post content..."></textarea>
+            <button class="btn btn-on-hover txt-large bg-darker txt-accent">create</button>
+        </main>
+    </div>
+</form>
+
+<% include ../partials/jquery %>
+<% include ../partials/footer %>

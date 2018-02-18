@@ -1,0 +1,32 @@
+<% include ../partials/headerOpen %>
+
+<% include ../partials/headerClose %>
+<% include ../partials/navbar-main %>
+
+<main>
+  <div class="row">
+    <div class="col s12 l2">
+      <div class="hide-on-med-and-down">
+        <br>
+        <a class="btn-flat blue-text waves-effect" href="/blog"><span class="valign-wrapper flow-text"><i class="material-icons">chevron_left</i> Back</span></a>
+      </div>
+    </div>
+    <div class="col s12 l8">
+      <h1><%= blogpost.title %></h1>
+      <h5>
+          <% var options = {timeZone: "America/New_York", weekday: "long", month: "long", day: "numeric", year: "numeric"} %>
+          <%= blogpost.date.toLocaleString("en-US", options) %>
+      </h5>
+      <p><%= blogpost.content.full %></p>
+    </div>
+    <div class="col s12 l2">
+      <div class="hide-on-large-only">
+        <a class="btn-flat blue-text waves-effect" href="/blog"><span class="valign-wrapper flow-text"><i class="material-icons">chevron_left</i> Back</span></a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<% include ../partials/copyright %>
+<% include ../partials/jquery %>
+<% include ../partials/footer %>

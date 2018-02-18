@@ -1,0 +1,58 @@
+/*#code-container {*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*    height: 300px;*/
+/*}*/
+
+/*#html-viewer {*/
+/*    width: 100%;*/
+/*}*/
+
+.space-right {
+    margin-right: 10px;
+}
+
+#code-container {
+    margin: 30px 0;
+}
+
+textarea {
+    /*border: 1px solid rgba(0, 0, 0, 0.2);*/
+    /*background: none;*/
+    /*width: 100%;*/
+    /*color: #333;*/
+    /*font-size: 16px;*/
+    /*padding: 5px 7px;*/
+    /*margin: 5px 0;*/
+    /*box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);*/
+    /*-webkit-transition: background-color 0.3s, border-radius 0.3s, box-shadow 0.3s;*/
+    /*-moz-transition: background-color 0.3s, border-radius 0.3s, box-shadow 0.3s;*/
+    /*-o-transition: background-color 0.3s, border-radius 0.3s, box-shadow 0.3s;*/
+    /*transition: background-color 0.3s, border-radius 0.3s, box-shadow 0.3s;*/
+    
+    -webkit-tab-size: 4;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+}
+
+/*#console-output {*/
+/*    height: 20%;*/
+/*}*/
+
+/*#code-console {*/
+/*    height: 70%;*/
+/*    -webkit-transition: background-color 0.3s, border-radius 0.3s, box-shadow 0.3s;*/
+/*    -moz-transition: background-color 0.3s, border-radius 0.3s, box-shadow 0.3s;*/
+/*    -o-transition: background-color 0.3s, border-radius 0.3s, box-shadow 0.3s;*/
+/*    transition: background-color 0.3s, border-radius 0.3s, box-shadow 0.3s;*/
+/*}*/
+
+/*#code-console:focus {*/
+/*    border-radius: 5px;*/
+/*    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);*/
+/*    -webkit-transition: background-color 0.3s, border-radius 0.3s, box-shadow 0.3s;*/
+/*    -moz-transition: background-color 0.3s, border-radius 0.3s, box-shadow 0.3s;*/
+/*    -o-transition: background-color 0.3s, border-radius 0.3s, box-shadow 0.3s;*/
+/*    transition: background-color 0.3s, border-radius 0.3s, box-shadow 0.3s;*/
+/*}*/

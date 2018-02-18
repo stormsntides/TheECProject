@@ -1,0 +1,36 @@
+.full-height {
+    height: 100vh;
+}
+
+.flex-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.landing-link {
+    /*font-size: 3.5vw;*/
+    padding: 10px;
+    color: #888;
+    text-decoration: none;
+    border: 2px solid #000;
+    border-color: rgba(0, 0, 0, 0);
+    border-radius: 5px;
+    transition: all 0.5s;
+}
+
+.landing-link:hover {
+    padding: 5px;
+    margin: 15px;
+    /*color: #ddd;*/
+    color: #e64a19;
+    /*border-color: #ddd;*/
+    border-color: #e64a19;
+    border-radius: 5px;
+    transition: all 0.5s;
+}
+
+.slide-out {
+    display: none;
+}

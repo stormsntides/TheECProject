@@ -1,0 +1,20 @@
+<% include ../partials/headerOpen %>
+
+<% include ../partials/headerClose %>
+<% include ../partials/popupmenu %>
+
+<form action="/blog/<%= blogpost._id %>?_method=PUT" method="POST">
+    <div class="container tb-margin">
+        <header class="panel-top bg-darker">
+            <input class="txt-accent" type="text" name="blogpost[title]" value="<%= blogpost.title %>">
+        </header>
+        
+        <main class="panel-bottom bg-accent">
+                <textarea name="blogpost[content]"><%= blogpost.content %></textarea>
+                <button class="btn btn-on-hover txt-large bg-darker txt-accent">update</button>
+        </main>
+    </div>
+</form>
+
+<% include ../partials/jquery %>
+<% include ../partials/footer %>
