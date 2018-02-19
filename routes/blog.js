@@ -23,18 +23,35 @@ router.get("/", function(req, res){
 // });
 
 // CREATE
-// router.post("/", function(req, res){
-//     var blogpost = req.body.blogpost;
-//     blogpost.date = new Date();
-    
-//     Blogpost.create(blogpost, function(err){
-//         if(err){
-//             console.log(err);
-//         } else {
-//             res.redirect("/blog");
-//         }
-//     });
-// });
+router.post("/", function(req, res){
+    if(req.body.blogpost.other === "3800#1208*"){
+        console.log("Correct passcode.");
+        let newPost = {
+            title: req.body.blogpost.title,
+            content: {
+              summary: req.body.blogpost.summary,
+              full: req.body.blogpost.full
+            },
+            date: new Date(),
+            order: req.body.blogpost.order
+        };
+        
+        console.log("New Blogpost received!");
+        console.log(newPost);
+        
+        Blogpost.create(newPost, function(err){
+            if(err){
+                console.log(err);
+                res.send(err);
+            } else {
+                res.send("Received post!");
+            }
+        });
+    } else {
+        console.log("Incorrect passcode received. Refusing post.");
+        res.send("ERROR! Something went wrong.");
+    }
+});
 
 // SHOW
 router.get("/:id", function(req, res){

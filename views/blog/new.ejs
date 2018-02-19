@@ -1,22 +1,35 @@
 <% include ../partials/headerOpen %>
 
 <% include ../partials/headerClose %>
-<% include ../partials/popupmenu %>
+<% include ../partials/navbar-main %>
 
-<form action="/blog" method="POST">
-    <div class="container tb-margin">
-        <header class="panel-top bg-darker">
-            <label class="txt-accent">Title</label>
-            <input type="text" name="blogpost[title]" placeholder="create a title">
-        </header>
-        
-        <main class="panel-bottom bg-accent">
-            <label>Content</label>
-            <textarea name="blogpost[content]" placeholder="enter post content..."></textarea>
-            <button class="btn btn-on-hover txt-large bg-darker txt-accent">create</button>
-        </main>
-    </div>
-</form>
+<main>
+  <div class="container">
+    <form>
+      <div class="row">
+        <div class="input-field col s12 m10">
+          <input id="title" name="blogpost[title]" type="text" class="validate" required>
+          <label for="title">Blog Title</label>
+        </div>
+        <div class="input-field col s12 m2">
+          <input id="order" name="blogpost[order]" type="number" min="0">
+          <label for="order">Order</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea id="summary" name="blogpost[summary]" class="materialize-textarea" data-length="140" maxlength="140"></textarea>
+          <label for="summary">Summary</label>
+        </div>
+        <div class="input-field col s12">
+          <textarea id="full" name="blogpost[full]" class="materialize-textarea"></textarea>
+          <label for="full">Blog Content</label>
+        </div>
+      </div>
+    </form>
+  </div>
+</main>
 
+<% include ../partials/copyright %>
 <% include ../partials/jquery %>
 <% include ../partials/footer %>
