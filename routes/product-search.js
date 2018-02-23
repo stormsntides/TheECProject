@@ -111,8 +111,7 @@ function formatProduct(pObj) {
     info: {
       name: pObj.name,
       manu: pObj.manu,
-      desc: pObj.desc,
-      url: pObj.url
+      desc: pObj.desc
     },
     loc: pObj.loc,
     tags: ["all", pObj.code, pObj.name.replace(/ +/g, "-"), pObj.manu.replace(/ +/g, "-")]

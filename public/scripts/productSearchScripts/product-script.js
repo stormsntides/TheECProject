@@ -8,7 +8,6 @@ function updateEditForm(productID){
     $("#edit-form input[name='product[name]']").val(data.info.name);
     $("#edit-form input[name='product[manu]']").val(data.info.manu);
     $("#edit-form textarea[name='product[desc]']").val(data.info.desc);
-    $("#edit-form input[name='product[url]']").val(data.info.url);
     $("#edit-form input[name='product[loc]']").val(data.loc);
     $("#edit-form input[name='product[tags]']").val(data.tags.join(", "));
     // make sure input labels don't overlap the values
@@ -28,7 +27,6 @@ function formatFoundProducts(foundProducts) {
                 "<p>" + foundProducts[i].info.desc + "</p>" +
                 "<hr>" +
                 "<div>" +
-                  "<a href='" + (foundProducts[i].info.url ? foundProducts[i].info.url : "#!") + "' class='btn-flat waves-effect waves-teal' target='_blank'>Link</a>" +
                   "<a href='#edit-form' class='modal-trigger btn-flat waves-effect waves-yellow'>Edit</a>" +
                 "</div>" +
               "</div>" +
