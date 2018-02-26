@@ -8,6 +8,7 @@ var express = require("express"),
 
 var indexRoutes = require("./routes/index"),
     blogRoutes = require("./routes/blog"),
+    musicRoutes = require("./routes/music"),
     codeRoutes = require("./routes/code"),
     productRoutes = require("./routes/product-search");
 
@@ -24,6 +25,7 @@ app.use(methodOverride("_method"));
 
 app.use(indexRoutes);
 app.use("/blog", blogRoutes);
+app.use("/music", musicRoutes);
 app.use("/code", codeRoutes);
 app.use("/product", productRoutes);
 

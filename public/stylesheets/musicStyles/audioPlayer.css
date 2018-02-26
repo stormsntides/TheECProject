@@ -1,0 +1,47 @@
+.pull-right {
+  margin-left: auto;
+}
+
+.audio-player .audio-control.collapsible,
+.audio-player .audio-control.collapsible .collapsible-header,
+.audio-player .audio-control.collapsible .collapsible-body {
+  border: none;
+}
+
+.audio-player .thumb {
+  background-color: grey !important;
+}
+
+.audio-player .audio-control.list li.divider {
+  margin: 10px 0;
+}
+
+.audio-player input[type=range].audio-control {
+  border: none;
+}
+
+.audio-player input[type=range].audio-control::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 20px;
+    width: 10px;
+    border-radius: 3px;
+    background: linear-gradient(to bottom, lightgrey, grey);
+    margin-top: -4px;
+}
+
+.audio-player input[type=range].audio-control::-moz-range-thumb {
+    border: none;
+    height: 20px;
+    width: 10px;
+    border-radius: 3px;
+    background: linear-gradient(to bottom, lightgrey, grey);
+}
+
+.audio-player input[type=range].audio-control::-ms-thumb {
+    border: none;
+    height: 20px;
+    width: 10px;
+    border-radius: 3px;
+    background: linear-gradient(to bottom, lightgrey, grey);
+}
