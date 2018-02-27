@@ -143,7 +143,7 @@ function search(term) {
   loadResults(term);
 }
 
-$(document).ready(function() {
+$(function() {
   $(".button-collapse").sideNav({
     edge: "right",
     closeOnClick: true

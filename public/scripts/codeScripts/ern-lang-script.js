@@ -38,7 +38,7 @@ var ernLang = {
         "type": "attr"
     },
     
-    restrict: true,
+    restrict: false,
     
     parseCode: function(text){
         var splitArray = text.split("\n"); //splits the text up by lines
@@ -170,16 +170,47 @@ var ernLang = {
 };
 
 // module.exports = ernLang;
+      
+function iResize() {
+    let iFrames = $('iframe');
+	for (let i = 0; i < iFrames.length; i++) {
+	  iFrames[i].style.height = iFrames[i].contentWindow.document.body.offsetHeight + 'px';
+	}
+}
+
+function updateIFrames(){
+    let iFrames = $('iframe');
+	if ($.browser.safari || $.browser.opera) { 
+	   iFrames.load(function(){
+	       setTimeout(iResize, 0);
+       });
+	   for (let i = 0; i < iFrames.length; i++) {
+			let iSource = iFrames[i].src;
+			iFrames[i].src = '';
+			iFrames[i].src = iSource;
+       }
+	} else {
+	   iFrames.load(function() { 
+	       this.style.height = this.contentWindow.document.body.offsetHeight + 'px';
+	   });
+	}
+}
 
 function update(){
     var code = ernLang.parseCode($("#code-console").val());
     $("#console-output").val(code);
-    $("#html-viewer").html(code);
+    // $("#html-viewer").html(code);
+    $("#html-viewer").attr("srcdoc", code);
+    updateIFrames();
     Materialize.updateTextFields();
     $('#console-output').trigger('autoresize');
 }
 
-$(document).ready(function(){
+$(function(){
+    $(".modal").modal({
+        opacity: 0.1
+    });
+    //restrict starts out unchecked
     $("#restrict").on("change", function(){
         ernLang.restrict = $("#restrict:checked").length > 0;
         update();

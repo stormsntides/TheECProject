@@ -6,26 +6,43 @@
 <% include ../partials/navbar-main %>
 
 <main>
-  <div id="html-viewer"></div>
-  <hr>
-  <div id="code-container">
-    <div class="container">
-      <div class="input-field">
-        <textarea id="code-console" class="materialize-textarea" name="code"></textarea>
-        <label for="code-console">Code</label>
+  <iframe id="html-viewer" sandbox="" srcdoc=""></iframe>
+</main>
+
+<div class="fixed-action-btn toolbar">
+  <a class="btn-floating btn-large red">
+    <i class="large material-icons">menu</i>
+  </a>
+  <ul>
+    <li class="waves-effect waves-light"><a class="modal-trigger" href="#console-modal">Console</a></li>
+    <li class="waves-effect waves-light"><a class="modal-trigger space-right" href="#help-text">Help</a></li>
+    <!-- Add restrict functionality in here at some point. -->
+  </ul>
+</div>
+  
+<!-- Code Console Modal -->
+<div id="console-modal" class="modal bottom-sheet">
+  <div class="modal-content">
+    <div class="row">
+      <div class="col s12 m6">
+        <div class="input-field">
+          <textarea id="code-console" class="materialize-textarea" name="code"></textarea>
+          <label for="code-console">Scribl-Er</label>
+        </div>
       </div>
-      <div class="input-field">
-        <textarea id="console-output" class="materialize-textarea"></textarea>
-        <label for="code-output">HTML</label>
-      </div>
-      <div>
-        <a class="btn modal-trigger space-right" href="#help-text">Help</a>
-        <input id="restrict" type="checkbox" checked>
-        <label for="restrict">Restrict</label>
+      <div class="col s12 m6">
+        <div class="input-field">
+          <textarea id="console-output" class="materialize-textarea"></textarea>
+          <label for="code-output">HTML</label>
+        </div>
       </div>
     </div>
   </div>
-</main>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+  </div>
+</div>
+          
 
 <!-- Help Modal -->
 <div id="help-text" class="modal">
