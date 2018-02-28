@@ -1,73 +1,86 @@
-<% include ../partials/headerOpen %>
-
-<link rel="stylesheet" type="text/css" href="/stylesheets/codeStyles/code-styles.css">
-
-<% include ../partials/headerClose %>
-<% include ../partials/navbar-main %>
-
-<main>
-  <iframe id="html-viewer" sandbox="" srcdoc=""></iframe>
-</main>
-
-<div class="fixed-action-btn toolbar">
-  <a class="btn-floating btn-large red">
-    <i class="large material-icons">menu</i>
-  </a>
-  <ul>
-    <li class="waves-effect waves-light"><a class="modal-trigger" href="#console-modal">Console</a></li>
-    <li class="waves-effect waves-light"><a class="modal-trigger space-right" href="#help-text">Help</a></li>
-    <!-- Add restrict functionality in here at some point. -->
-  </ul>
-</div>
-  
-<!-- Code Console Modal -->
-<div id="console-modal" class="modal bottom-sheet">
-  <div class="modal-content">
-    <div class="row">
-      <div class="col s12 m6">
-        <div class="input-field">
-          <textarea id="code-console" class="materialize-textarea" name="code"></textarea>
-          <label for="code-console">Scribl-Er</label>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Scribl-Er</title>
+    <meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#2e7d32">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/stylesheets/general-styles.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/codeStyles/code-styles.css">
+  </head>
+  <body>
+    <header>
+      <!-- Fixed Navbar with actions for manipulating data -->
+      <div class="navbar-fixed">
+        <nav class="green darken-3">
+          <div class="nav-wrapper container">
+            <a href="/" class="brand-logo left">Scribl-Er</a>
+            <a href="#" data-activates="slide-out" class="button-collapse right"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+              <li class="waves-effect waves-light"><a class="modal-trigger" href="#console-modal">Console</a></li>
+              <li class="waves-effect waves-light"><a class="modal-trigger space-right" href="#help-text">Help</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <!-- When using navbar-fixed, side-nav must be outside of it in order to allow links to be clicked -->
+      <ul id="slide-out" class="side-nav">
+        <li><a class="modal-trigger" href="#console-modal">Console</a></li>
+        <li><a class="modal-trigger space-right" href="#help-text">Help</a></li>
+      </ul> <!-- end Nav -->
+    </header>
+    
+    <main>
+      <iframe id="html-viewer" sandbox="" srcdoc=""></iframe>
+    </main>
+      
+    <!-- Code Console Modal -->
+    <div id="console-modal" class="modal modal-fixed-footer bottom-sheet">
+      <div class="modal-content">
+        <div class="row">
+          <div class="col s12 m6">
+            <div class="input-field">
+              <textarea id="code-console" class="materialize-textarea" name="code"></textarea>
+              <label for="code-console">Scribl-Er</label>
+            </div>
+          </div>
+          <div class="col s12 m6">
+            <div class="input-field">
+              <textarea id="console-output" class="materialize-textarea"></textarea>
+              <label for="code-output">HTML</label>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col s12 m6">
-        <div class="input-field">
-          <textarea id="console-output" class="materialize-textarea"></textarea>
-          <label for="code-output">HTML</label>
-        </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
       </div>
     </div>
-  </div>
-  <div class="modal-footer">
-    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-  </div>
-</div>
-          
-
-<!-- Help Modal -->
-<div id="help-text" class="modal">
-  <div class="modal-content">
-    <h4>Instructions</h4>
-    <h5>How to write Scribl-Er</h5>
-    <p>Welcome to writing Scribl-Er. If you know how to write HTML, then you know Scribl-Er. All you need now is the syntax.</p>
-    <p>The concept is the same as putting Python and HTML together. There are no brackets and white-space is important. Every tag is followed with a colon [:] and all displayed text is surrounded by double quotes ["]. Inline tags, such as spans, can be pushed inline using double parentheses [((span))]. To enclose tags inside of other tags, indent using the tab key. To force close a tag, you can use the semi-colon [;].</p>
-    <p><strong>Example</strong></p>
-    <code>
-      <p>
-        <span>div id="main-content":</span><br>
-        <span style="margin-left: 20px">h1: "Example Heading"</span><br>
-        <span style="margin-left: 20px">hr:</span><br>
-        <span style="margin-left: 20px">div id="example-code":</span><br>
-          <span style="margin-left: 40px">p class="center-align":</span><br>
-            <span style="margin-left: 60px">"This is some example text to show off Scribl-Er. You can use ((em: "inline")) characters to contain tags and text. You could also use syntax " strong: "like this"; " to also inline content."</span><br>
-        <span style="margin-left: 20px">p: "Just remember that white-space is important. This content is not contained with the #example-code div."</span><br>
-      </p>
-    </code>
-  </div>
-  <div class="modal-footer">
-    <a href="#!" class="modal-action modal-close waves-effect btn-flat">Close</a>
-  </div>
-</div>
+    
+    <!-- Help Modal -->
+    <div id="help-text" class="modal">
+      <div class="modal-content">
+        <h4>Instructions</h4>
+        <h5>How to write Scribl-Er</h5>
+        <p>Welcome to writing Scribl-Er. If you know how to write HTML, then you know Scribl-Er. All you need now is the syntax.</p>
+        <p>The concept is the same as putting Python and HTML together. There are no brackets and white-space is important. Every tag is followed with a colon [ : ] and all displayed text is surrounded by double quotes [ " ]. Inline tags, such as spans, can be pushed inline using double parentheses [ ((span)) ]. To enclose tags inside of other tags, indent using the tab key. To force close a tag, you can use the semi-colon [ ; ].</p>
+        <p><strong>Example</strong></p>
+        <pre>
+div id="main-content":
+  h1: "Example Heading"
+  hr:
+  div id="example-code":
+    p class="center-align":
+      "This is some example text to show off Scribl-Er. You can use ((em: "inline")) characters to contain tags and text. You can also use syntax " strong: "like this"; " to also inline content."
+  p: "Just remember that white-space is important. This content is not contained within the #example-code div."
+        </pre>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect btn-flat">Close</a>
+      </div>
+    </div>
 
 <% include ../partials/copyright %>
 <% include ../partials/jquery %>

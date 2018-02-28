@@ -164,49 +164,53 @@ var ernLang = {
             finalText += "\t".repeat(ele.depth) + "</" + ele.tagname + ">\n";
         }
         
-        finalText = finalText.replace(/\s*<\/br>|\s*<\/hr>|\s*<\/img>|\s*<\/input>/gm, "");
+        finalText = finalText.replace(/\s*<\/br>|\s*<\/hr>|\s*<\/img>|\s*<\/input>|\s*<\/link>|\s*<\/meta>/gm, "");
         return finalText.replace(/''/gm, "\"");
     }
 };
 
 // module.exports = ernLang;
-      
-function iResize() {
-    let iFrames = $('iframe');
-	for (let i = 0; i < iFrames.length; i++) {
-	  iFrames[i].style.height = iFrames[i].contentWindow.document.body.offsetHeight + 'px';
-	}
-}
 
-function updateIFrames(){
-    let iFrames = $('iframe');
-	if ($.browser.safari || $.browser.opera) { 
-	   iFrames.load(function(){
-	       setTimeout(iResize, 0);
-       });
-	   for (let i = 0; i < iFrames.length; i++) {
-			let iSource = iFrames[i].src;
-			iFrames[i].src = '';
-			iFrames[i].src = iSource;
-       }
-	} else {
-	   iFrames.load(function() { 
-	       this.style.height = this.contentWindow.document.body.offsetHeight + 'px';
-	   });
-	}
+function exampleCode(){
+    let text = "html:\n" +
+                    "\thead:\n" +
+                        "\t\ttitle:\"Example\"\n" +
+                        "\t\tmeta name=\"viewport\" charset=\"utf-8\" content=\"width=device-width, initial-scale=1\":\n" +
+                        "\t\tlink rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css\":\n" +
+                        "\t\tlink rel=\"stylesheet\" href=\"https://fonts.googleapis.com/icon?family=Material+Icons\":\n" +
+                    "\tbody class=\"container\":\n" +
+                        "\t\theader:\n" +
+                            "\t\t\th1:\"Scribl-Er Example\"\n" +
+                        "\t\tmain:\n" +
+                            "\t\t\tarticle:\n" +
+                                "\t\t\t\tp:\n" +
+                                    "\t\t\t\t\t\"This is an example of what you can do in ((strong:\"Scribl-Er\")). It is HTML at it's core, with Pythonic syntax mixed in to make it ((em:\"easier to write and read\")).\"\n" +
+                                "\t\t\t\tp:\n" +
+                                    "\t\t\t\t\t\"Use this example text as a reference to go by and to ((span class=\"yellow\":\"help with the syntax\")) of ((strong:\"Scribl-Er\")). Functionality will be limited in certain areas but the basic concept can still let you create a demo webpage with ease!\"\n" +
+                        "\t\thr:\n" +
+                        "\t\tfooter:\n" +
+                            "\t\t\tp:\"As a final note: just like in Python, in ((strong:\"Scribl-Er the ((span class=\"yellow\":\"whitespace is important\"))\")) and will determine when tags will close and where content will be located within tags.\"\n" +
+                            "\t\t\tp:\"Keep this in mind and have fun!\"";
+    $("#code-console").val(text);
+    let code = ernLang.parseCode($("#code-console").val());
+    $("#console-output").val(code);
+    $("#html-viewer").attr("srcdoc", code);
+    Materialize.updateTextFields();
+    $("#code-console").trigger("autoresize");
+    $('#console-output').trigger('autoresize');
 }
 
 function update(){
-    var code = ernLang.parseCode($("#code-console").val());
+    let code = ernLang.parseCode($("#code-console").val());
     $("#console-output").val(code);
     // $("#html-viewer").html(code);
     $("#html-viewer").attr("srcdoc", code);
-    updateIFrames();
     Materialize.updateTextFields();
     $('#console-output').trigger('autoresize');
 }
 
 $(function(){
+    exampleCode();
     $(".modal").modal({
         opacity: 0.1
     });
@@ -223,11 +227,11 @@ $(function(){
     $("textarea").keydown(function(e) {
         if(e.keyCode === 9) { // tab was pressed
             // get caret position/selection
-            var start = this.selectionStart;
-            var end = this.selectionEnd;
+            let start = this.selectionStart;
+            let end = this.selectionEnd;
     
-            var $this = $(this);
-            var value = $this.val();
+            let $this = $(this);
+            let value = $this.val();
     
             // set textarea value to: text before caret + tab + text after caret
             $this.val(value.substring(0, start)
