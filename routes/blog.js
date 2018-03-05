@@ -1,7 +1,9 @@
 var express = require("express"),
     router = express.Router(),
     Blogpost = require("../models/blogpost");
-    
+
+var blog_key = process.env.BLOGKEY || "testkey123";
+
 // This is where all of the blog routes will be
 
 // INDEX
@@ -24,7 +26,7 @@ router.get("/", function(req, res){
 
 // CREATE
 router.post("/", function(req, res){
-    if(req.body.blogpost.other === "3800#1208*"){
+    if(req.body.blogpost.other === blog_key){
         console.log("Correct passcode.");
         let newPost = {
             title: req.body.blogpost.title,
@@ -35,10 +37,10 @@ router.post("/", function(req, res){
             date: new Date(),
             order: req.body.blogpost.order
         };
-        
+
         console.log("New Blogpost received!");
         console.log(newPost);
-        
+
         Blogpost.create(newPost, function(err){
             if(err){
                 console.log(err);

@@ -4,7 +4,8 @@ var express = require("express"),
     mongoose = require("mongoose"),
     methodOverride = require("method-override"),
     blogSeed = require("./models/seeds/blogSeeds"),
-    productSeed = require("./models/seeds/productSeeds");
+    productSeed = require("./models/seeds/productSeeds"),
+    databaseData = require("./databaseData");
 
 var indexRoutes = require("./routes/index"),
     blogRoutes = require("./routes/blog"),
@@ -12,7 +13,10 @@ var indexRoutes = require("./routes/index"),
     codeRoutes = require("./routes/code"),
     productRoutes = require("./routes/product-search");
 
-var db_url = process.env.DATABASEURL || "mongodb://localhost/ecproject";
+var PORT = process.env.PORT || "8081",
+    IP = process.env.IP || "127.0.0.1";
+
+var db_url = process.env.DATABASEURL || databaseData.localURL;
 mongoose.connect(db_url);
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -29,6 +33,6 @@ app.use("/music", musicRoutes);
 app.use("/code", codeRoutes);
 app.use("/product", productRoutes);
 
-app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(PORT, IP, function(){
     console.log("ECP server is running!");
 });
