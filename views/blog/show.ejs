@@ -17,7 +17,7 @@
           <% var options = {timeZone: "America/New_York", weekday: "long", month: "long", day: "numeric", year: "numeric"} %>
           <%= blogpost.date.toLocaleString("en-US", options) %>
       </h5>
-      <p><%= blogpost.content.full %></p>
+      <div><%- blogpost.content.full %></div>
     </div>
     <div class="col s12 l2">
       <div class="hide-on-large-only">
