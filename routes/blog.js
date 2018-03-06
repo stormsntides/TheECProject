@@ -20,12 +20,13 @@ router.get("/", function(req, res){
 });
 
 // NEW
-// router.get("/new", function(req, res){
-//     res.render("blog/new");
-// });
+router.get("/new", function(req, res){
+    res.render("../local-files/new");
+});
 
 // CREATE
 router.post("/", function(req, res){
+  // console.log(req.body);
     if(req.body.blogpost.other === blog_key){
         console.log("Correct passcode.");
         let newPost = {
@@ -44,14 +45,14 @@ router.post("/", function(req, res){
         Blogpost.create(newPost, function(err){
             if(err){
                 console.log(err);
-                res.send(err);
+                res.json({message: err});
             } else {
-                res.send("Received post!");
+                res.json({message: "Received post!"});
             }
         });
     } else {
         console.log("Incorrect passcode received. Refusing post.");
-        res.send("ERROR! Something went wrong.");
+        res.json({message: "ERROR! Something went wrong."});
     }
 });
 
