@@ -5,7 +5,7 @@ var express = require("express"),
     methodOverride = require("method-override"),
     blogSeed = require("./models/seeds/blogSeeds"),
     productSeed = require("./models/seeds/productSeeds"),
-    databaseData = require("./databaseData");
+    databaseData = require("./local-files/databaseData");
 
 var indexRoutes = require("./routes/index"),
     blogRoutes = require("./routes/blog"),
