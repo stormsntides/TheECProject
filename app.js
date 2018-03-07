@@ -15,13 +15,13 @@ var indexRoutes = require("./routes/index"),
 var PORT = process.env.PORT || "8081",
     IP = process.env.IP || "127.0.0.1";
 
-var db_url;
-if(process.env.DATABASEURL){
-  db_url = process.env.DATABASEURL;
-} else {
-  var databaseData = require("./local-files/databaseData");
-  db_url = databaseData.localURL;
-}
+// HEROKU BUILD
+var db_url = process.env.DATABASEURL;
+
+// LOCAL BUILD
+// var databaseData = require("./local-files/databaseData");
+// var db_url = databaseData.localURL;
+
 mongoose.connect(db_url);
 
 app.use(bodyParser.urlencoded({extended: true}));
