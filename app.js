@@ -13,16 +13,10 @@ var indexRoutes = require("./routes/index"),
     productRoutes = require("./routes/product-search");
 
 var PORT = process.env.PORT || "8081",
-    IP = process.env.IP || "127.0.0.1";
+    IP = process.env.IP || "127.0.0.1",
+    DATABASEURL = process.env.DATABASEURL || "mongodb://testdata_admin:TheECProject_Data@ds155288.mlab.com:55288/ec_testdata";
 
-// HEROKU BUILD
-var db_url = process.env.DATABASEURL;
-
-// LOCAL BUILD
-// var databaseData = require("./local-files/databaseData");
-// var db_url = databaseData.localURL;
-
-mongoose.connect(db_url);
+mongoose.connect(DATABASEURL);
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
