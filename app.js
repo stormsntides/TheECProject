@@ -4,8 +4,7 @@ var express = require("express"),
     mongoose = require("mongoose"),
     methodOverride = require("method-override"),
     blogSeed = require("./models/seeds/blogSeeds"),
-    productSeed = require("./models/seeds/productSeeds"),
-    databaseData = require("./local-files/databaseData");
+    productSeed = require("./models/seeds/productSeeds");
 
 var indexRoutes = require("./routes/index"),
     blogRoutes = require("./routes/blog"),
@@ -16,7 +15,13 @@ var indexRoutes = require("./routes/index"),
 var PORT = process.env.PORT || "8081",
     IP = process.env.IP || "127.0.0.1";
 
-var db_url = process.env.DATABASEURL || databaseData.localURL;
+var db_url;
+if(process.env.DATABASEURL){
+  db_url = process.env.DATABASEURL;
+} else {
+  var databaseData = require("./local-files/databaseData");
+  db_url = databaseData.localURL;
+}
 mongoose.connect(db_url);
 
 app.use(bodyParser.urlencoded({extended: true}));
