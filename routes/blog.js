@@ -45,14 +45,14 @@ router.post("/", function(req, res){
         Blogpost.create(newPost, function(err){
             if(err){
                 console.log(err);
-                res.json({message: err});
+                res.json({message: err, status: "fail", type: "error"});
             } else {
-                res.json({message: "Received post!"});
+                res.json({message: "Received post!", status: "success", type: "new"});
             }
         });
     } else {
         console.log("Incorrect passcode received. Refusing post.");
-        res.json({message: "ERROR! Something went wrong."});
+        res.json({message: "ERROR! Something went wrong.", status: "fail", type: "error"});
     }
 });
 
@@ -68,35 +68,57 @@ router.get("/:id", function(req, res){
 });
 
 // EDIT
-// router.get("/:id/edit", function(req, res){
-//     Blogpost.findById(req.params.id, function(err, foundBlogpost){
-//         if(err || !foundBlogpost){
-//             console.log(err);
-//         } else {
-//             res.render("blog/edit", {blogpost: foundBlogpost});
-//         }
-//     });
-// });
+router.get("/:id/edit", function(req, res){
+    Blogpost.findById(req.params.id, function(err, foundBlogpost){
+        if(err || !foundBlogpost){
+            console.log(err);
+        } else {
+            res.render("../local-files/edit", {blogpost: foundBlogpost});
+        }
+    });
+});
 
 // UPDATE
-// router.put("/:id", function(req, res){
-//     Blogpost.findByIdAndUpdate(req.params.id, req.body.blogpost, function(err, updatedBlogpost){
-//         if(err){
-//             console.log(err);
-//         } else {
-//             res.redirect("/blog/" + req.params.id);
-//         }
-//     });
-// });
+router.put("/:id", function(req, res){
+  if(req.body.blogpost.other === blog_key){
+    console.log("Correct passcode.");
+    let editedPost = {
+        title: req.body.blogpost.title,
+        content: {
+          summary: req.body.blogpost.summary,
+          full: req.body.blogpost.full
+        },
+        order: req.body.blogpost.order
+    };
+
+    console.log("Edited Blogpost received!");
+    console.log(editedPost);
+
+    Blogpost.findByIdAndUpdate(req.params.id, editedPost, function(err, updatedBlogpost){
+        if(err){
+            console.log(err);
+            res.json({message: err, status: "fail", type: "error"});
+        } else {
+            res.json({message: "Updated post \"" + updatedBlogpost.title + "\"!", status: "success", type: "update"});
+        }
+    });
+  } else {
+      console.log("Incorrect passcode received. Refusing post.");
+      res.json({message: "ERROR! Something went wrong.", status: "fail", type: "error"});
+  }
+});
 
 // DESTROY
-// router.delete("/:id", function(req, res){
-//     Blogpost.findByIdAndRemove(req.params.id, function(err){
-//         if(err){
-//             console.log(err);
-//         }
-//         res.redirect("/blog");
-//     });
-// });
+router.delete("/:id", function(req, res){
+  console.log("Received delete request.");
+    Blogpost.findByIdAndRemove(req.params.id, function(err){
+      if(err){
+          console.log(err);
+          res.json({message: err, status: "fail", type: "error"});
+      } else {
+          res.json({message: "Deleted post.", status: "success", type: "delete"});
+      }
+    });
+});
 
 module.exports = router;
