@@ -52,6 +52,10 @@
 	position: fixed !important;
 }
 
+.push-down {
+	margin-top: 15px;
+}
+
 #website-image-list {
 	display: flex;
 	flex-wrap: wrap;
