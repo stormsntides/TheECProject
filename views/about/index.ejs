@@ -1,0 +1,107 @@
+<% include ../partials/headerOpen %>
+
+<link rel="stylesheet" type="text/css" href="/stylesheets/aboutStyles/about-styles.css">
+
+<% include ../partials/headerClose %>
+<% include ../partials/navbar-main %>
+
+<!-- Content down here -->
+<main class="container flow-text">
+ <div class="row">
+  <div class="col s12 m9 offset-m1">
+   <div id="top" class="section scrollspy">
+    <div class="card-panel">
+     <div id="profile" class="row">
+      <div class="col s12 l8">
+       <img class="responsive-img" src="https://i.imgur.com/cvJmu36.jpg">
+      </div>
+      <div class="col s12 l4">
+       <ul>
+        <li>Web Developer</li>
+        <li>Music Producer</li>
+        <li>Programmer</li>
+        <li>Musician</li>
+        <li>Creator</li>
+       </ul>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div id="about" class="section scrollspy">
+    <div class="brace">
+     <div class="brace-title">
+      <span class="white">About</span>
+     </div>
+     <p class="brace-content">I am a web developer by day and songwriter by night. I design modern front end experiences that are simple and easy to navigate. Minimalism is the key to creating a fluid user experience. I also write, record, and produce music. If you need an engaging
+      web page developer or a sound engineer for your next project, I am your guy!</p>
+    </div>
+   </div>
+   <div id="portfolio" class="section scrollspy">
+    <div class="brace">
+     <div class="brace-title">
+      <span class="white">Portfolio</span>
+     </div>
+     <p class="brace-content">You can check out the websites that I've created or helped develop here. Just click on the image and it will take you to the web page!</p>
+     <ul id="website-image-list">
+      <li>
+       <a href="http://bigernandandy.herokuapp.com/" target="_blank"><img class="hoverable" src="https://i.imgur.com/zSg98ju.png"></a>
+      </li>
+			<li>
+				<a href="https://codepen.io/stormsntides/full/EoZGdK/" target="_blank"><img class="hoverable" src="https://i.imgur.com/TwRSQNu.png"></a>
+			</li>
+			<li>
+				<a href="https://codepen.io/stormsntides/full/qpjayW/" target="_blank"><img class="hoverable" src="https://i.imgur.com/wjOSbcS.jpg"></a>
+			</li>
+			<li>
+			 	<a href="https://codepen.io/stormsntides/full/opGJby/" target="_blank"><img class="hoverable" src="https://i.imgur.com/683VYOa.png"></a>
+			</li>
+     </ul>
+    </div>
+   </div>
+   <div id="contact" class="section scrollspy">
+    <div class="brace">
+     <div class="brace-title">
+      <span class="white">Contact</span>
+     </div>
+     <div class="brace-content">
+			 <p>I can be reached through any of my social-media accounts (links located in the footer). Send me a message if you would like to collaborate on a project, have me work on the front end of your website, or get a copy of my resume. I am an open book! I will respond as soon as I am able to. In the meantime, keep an eye on this page for updates in the <a href="#portfolio">portfolio</a> section. I will be adding more to it in the coming months.</p>
+			 <p><strong><em>Please do not send spam messages. I am happy to reply to serious inquiries.</em></strong></p>
+			</div>
+    </div>
+   </div>
+  </div>
+  <div class="col hide-on-small-only m2 pin-top">
+   <ul class="section table-of-contents">
+    <li><a href="#top">Ernest Cates</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#contact">Contact</a></li>
+   </ul>
+  </div>
+ </div>
+</main>
+
+<div class="fixed-action-btn toolbar hide-on-med-and-up">
+  <a class="btn-floating btn-large deep-orange darken-2">
+    <i class="large material-icons">menu</i>
+  </a>
+  <ul>
+    <li class="waves-effect waves-light"><a href="#top">Ernest Cates</a></li>
+    <li class="waves-effect waves-light"><a href="#about">About</a></li>
+    <li class="waves-effect waves-light"><a href="#portfolio">Portfolio</a></li>
+    <li class="waves-effect waves-light"><a href="#contact">Contact</a></li>
+  </ul>
+</div>
+
+<% include ../partials/copyright %>
+<% include ../partials/jquery %>
+
+<script>
+  $(function(){
+    $('.scrollspy').scrollSpy({
+      scrollOffset: 70
+    });
+  });
+</script>
+
+<% include ../partials/footer %>

@@ -25,7 +25,7 @@ var ernLang = {
         "span": "tag",
         "strong": "tag",
         "textarea": "tag",
-        
+
         "action": "attr",
         "class": "attr",
         "for": "attr",
@@ -37,23 +37,28 @@ var ernLang = {
         "target": "attr",
         "type": "attr"
     },
-    
+
     restrict: false,
-    
-    parseCode: function(text){
+/*
+this is for an idea I'm working on; I want to revamp the ernlang processing code, make it easier to parse
+
+/([a-z0-9]+) *([ \-_a-z0-9]*) *(['=() \-_a-z0-9]*):|([a-z0-9]+) *([\-_a-z0-9]*),? *([ \-_a-z0-9]*) *(['=() \-_a-z0-9]*):/i.exec("div main, red darken-3 (name='last' for='something'): \"This should be a div with an id of main and classes of red darken-3\"")
+*/
+
+    parseCodeRefined: function(text){
         var splitArray = text.split("\n"); //splits the text up by lines
         var finalText = ""; //string to append all text conversions to
-        
+
         var prevDepth = 0; //the previous line's tab depth
         var queue = []; //queue for holding tag names that still need to be closed
         for(let i = 0; i < splitArray.length; i++){
             var str = splitArray[i];
-            
+
             //if current line is all whitespace characters, start loop over without performing any logic
             if(!/\S/.test(str)){
                 continue;
             }
-            
+
             //find tab depth; if tab depth is less than or equal to previous tab depth, pop tag from queue so it can be closed
             var indentDepth = /^\t*/.exec(str)[0].length;
             if(prevDepth >= indentDepth){
@@ -64,13 +69,16 @@ var ernLang = {
             }
             prevDepth = indentDepth;
             finalText += "\t".repeat(indentDepth);
-            
+
             var prevState = []; //queue for holding previous states of disregardTexts; used when ()'s are invoked
             var disregardText = false; //if a quote character is found, ignore any following text until next quote character
             var keywordPerLine = 0; //for calculating inline tag blocks
             var textOnLine = false; //also for calculating inline tag blocks
             for(let strPos = indentDepth; strPos < str.length; strPos++){
-                if(str.charAt(strPos) === "\""){
+                if(str.charAt(strPos) === "\\"){
+                  finalText += str.charAt(strPos + 1);
+                  strPos++;
+                } else if(str.charAt(strPos) === "\""){
                     //if quote character found, toggle disregard text and set inline tag block text flag to true
                     disregardText = !disregardText;
                     textOnLine = true;
@@ -89,13 +97,144 @@ var ernLang = {
                     strPos++;
                 } else if(!disregardText) {
                     //if not inside of quotes, check for keywords
-                    
+
+                    if(/[a-z]/i.test(str.charAt(strPos))){
+                        //if character is an alphabetical character, find what keyword it is
+                        let tagRE = /([a-z0-9]+) *([ \-_a-z0-9]*) *(['=() \-_a-z0-9]*):|([a-z0-9]+) *([\-_a-z0-9]*),? *([ \-_a-z0-9]*) *(['=() \-_a-z0-9]*):/i;
+
+                        //[0] is found string, [1-3] is tag-class-attr respectively, [4-7] is tag-id-class-attr respectively
+                        let tagInfo = tagRE.exec(str.substring(strPos));
+
+                        if(tagInfo[1]){
+                          queue.push({tagname: tagInfo[1], depth: indentDepth});
+                          keywordPerLine += 1;
+                          finalText += "<" + tagInfo[1];
+                          if(tagInfo[2]){
+                            finalText += " class='" + tagInfo[2] + "'";
+                          }
+                          if(tagInfo[3]){
+                            finalText += tagInfo[3].replace(/[()]/g, "");
+                          }
+                          finalText += ">";
+                        } else if(tagInfo[4]){
+                          queue.push({tagname: tagInfo[4], depth: indentDepth});
+                          keywordPerLine += 1;
+
+                          finalText += "<" + tagInfo[4] + " id='" + tagInfo[5] + "'";
+                          if(tagInfo[6]){
+                            finalText += " class='" + tagInfo[6] + "'";
+                          }
+                          if(tagInfo[7]){
+                            finalText += " " + tagInfo[7].replace(/[()]/g, "");
+                          }
+                          finalText += ">";
+                        }
+
+                        strPos += tagInfo[0].length - 1;
+                    } else if(str.charAt(strPos) === ";"){
+                        //if semicolon, immediately place end tag of last queued tag
+                        if(queue.length > 0){
+                            finalText += "</" + queue.pop().tagname + ">";
+                            if(keywordPerLine > 0){
+                                keywordPerLine -= 1;
+                            }
+                        }
+                    } else {
+                        //if no special text found, add to the final result as is
+                        finalText += str.charAt(strPos);
+                    }
+                } else {
+                    //if no special text found, add to the final result as is
+                    finalText += str.charAt(strPos);
+                }
+            }
+
+            if(keywordPerLine > 1){
+                //if more than one tag is found on one line, do inline tag closing
+                while(queue.length > 0 && keywordPerLine > 0){
+                    let ele = queue.pop();
+                    finalText += "</" + ele.tagname + ">";
+                    keywordPerLine -= 1;
+                }
+            } else if(keywordPerLine === 1 && textOnLine){
+                //if inline text is found, do inline tag closing
+                let ele = queue.pop();
+                finalText += "</" + ele.tagname + ">";
+            }
+
+            //end of text line, add line break
+            finalText += "\n";
+        }
+
+        //if tags still remain queued after all lines have been processed, pop tags and creating closing tags for them
+        while(queue.length > 0){
+            let ele = queue.pop();
+            finalText += "\t".repeat(ele.depth) + "</" + ele.tagname + ">\n";
+        }
+
+        finalText = finalText.replace(/\s*<\/br>|\s*<\/hr>|\s*<\/img>|\s*<\/input>|\s*<\/link>|\s*<\/meta>/gm, "");
+        return finalText;
+    },
+
+    parseCode: function(text){
+        var splitArray = text.split("\n"); //splits the text up by lines
+        var finalText = ""; //string to append all text conversions to
+
+        var prevDepth = 0; //the previous line's tab depth
+        var queue = []; //queue for holding tag names that still need to be closed
+        for(let i = 0; i < splitArray.length; i++){
+            var str = splitArray[i];
+
+            //if current line is all whitespace characters, start loop over without performing any logic
+            if(!/\S/.test(str)){
+                continue;
+            }
+
+            //find tab depth; if tab depth is less than or equal to previous tab depth, pop tag from queue so it can be closed
+            var indentDepth = /^\t*/.exec(str)[0].length;
+            if(prevDepth >= indentDepth){
+                while(queue.length > 0 && queue[queue.length - 1].depth >= indentDepth){
+                    let ele = queue.pop();
+                    finalText += "\t".repeat(ele.depth) + "</" + ele.tagname + ">\n";
+                }
+            }
+            prevDepth = indentDepth;
+            finalText += "\t".repeat(indentDepth);
+
+            var prevState = []; //queue for holding previous states of disregardTexts; used when ()'s are invoked
+            var disregardText = false; //if a quote character is found, ignore any following text until next quote character
+            var keywordPerLine = 0; //for calculating inline tag blocks
+            var textOnLine = false; //also for calculating inline tag blocks
+            for(let strPos = indentDepth; strPos < str.length; strPos++){
+                if(str.charAt(strPos) === "\\"){
+                  finalText += str.charAt(strPos + 1);
+                  strPos++;
+                } else if(str.charAt(strPos) === "\""){
+                    //if quote character found, toggle disregard text and set inline tag block text flag to true
+                    disregardText = !disregardText;
+                    textOnLine = true;
+                } else if(str.charAt(strPos) === "(" && str.charAt(strPos + 1) === "(") {
+                    prevState.push(disregardText);
+                    disregardText = false;
+                    strPos++;
+                } else if(str.charAt(strPos) === ")" && str.charAt(strPos + 1) === ")" && prevState.length > 0) {
+                    disregardText = prevState.pop();
+                    if(queue.length > 0){
+                        finalText += "</" + queue.pop().tagname + ">";
+                        if(keywordPerLine > 0){
+                            keywordPerLine -= 1;
+                        }
+                    }
+                    strPos++;
+                } else if(!disregardText) {
+                    //if not inside of quotes, check for keywords
+
                     if(/[a-z]/.test(str.charAt(strPos))){
                         //if character is an alphabetical character, find what keyword it is
-                        
+
                         //get whether or not value is a tag or an attribute
                         var keyVals = /([a-z0-9]+) *= *("[^"]*")|([a-z0-9]+)/.exec(str.substring(strPos));
-                        
+
                         if(keyVals[1] && keyVals[2]){
                             if(this.restrict){
                                 //if attribute, create attribute string
@@ -140,7 +279,7 @@ var ernLang = {
                     finalText += str.charAt(strPos);
                 }
             }
-            
+
             if(keywordPerLine > 1){
                 //if more than one tag is found on one line, do inline tag closing
                 while(queue.length > 0 && keywordPerLine > 0){
@@ -153,19 +292,19 @@ var ernLang = {
                 let ele = queue.pop();
                 finalText += "</" + ele.tagname + ">";
             }
-            
+
             //end of text line, add line break
             finalText += "\n";
         }
-        
+
         //if tags still remain queued after all lines have been processed, pop tags and creating closing tags for them
         while(queue.length > 0){
             let ele = queue.pop();
             finalText += "\t".repeat(ele.depth) + "</" + ele.tagname + ">\n";
         }
-        
+
         finalText = finalText.replace(/\s*<\/br>|\s*<\/hr>|\s*<\/img>|\s*<\/input>|\s*<\/link>|\s*<\/meta>/gm, "");
-        return finalText.replace(/''/gm, "\"");
+        return finalText;
     }
 };
 
@@ -202,8 +341,8 @@ function exampleCode(){
 
 function update(){
     let code = ernLang.parseCode($("#code-console").val());
+    // let code = ernLang.parseCodeRefined($("#code-console").val());
     $("#console-output").val(code);
-    // $("#html-viewer").html(code);
     $("#html-viewer").attr("srcdoc", code);
     Materialize.updateTextFields();
     $('#console-output').trigger('autoresize');
@@ -223,24 +362,24 @@ $(function(){
     $("#code-console").on("keyup", function(){
         update();
     });
-    
+
     $("textarea").keydown(function(e) {
         if(e.keyCode === 9) { // tab was pressed
             // get caret position/selection
             let start = this.selectionStart;
             let end = this.selectionEnd;
-    
+
             let $this = $(this);
             let value = $this.val();
-    
+
             // set textarea value to: text before caret + tab + text after caret
             $this.val(value.substring(0, start)
                         + "\t"
                         + value.substring(end));
-    
+
             // put caret at right position again (add one for the tab)
             this.selectionStart = this.selectionEnd = start + 1;
-    
+
             // prevent the focus lose
             e.preventDefault();
         }
