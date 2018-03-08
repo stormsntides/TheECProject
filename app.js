@@ -34,4 +34,7 @@ app.use("/product", productRoutes);
 
 app.listen(PORT, IP, function(){
     console.log("ECP server is running!");
+    console.log("Port: " + PORT);
+    console.log("IP: " + IP);
+    console.log("Database Url: " + DATABASEURL);
 });
