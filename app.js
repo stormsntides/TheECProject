@@ -13,7 +13,6 @@ var indexRoutes = require("./routes/index"),
     productRoutes = require("./routes/product-search");
 
 var PORT = process.env.PORT || "8081",
-    // IP = process.env.IP || "127.0.0.1",
     DATABASEURL = process.env.DATABASEURL || "mongodb://testdata_admin:TheECProject_Data@ds155288.mlab.com:55288/ec_testdata";
 
 mongoose.connect(DATABASEURL);
@@ -34,7 +33,4 @@ app.use("/product", productRoutes);
 
 app.listen(PORT, process.env.IP, function(){
     console.log("ECP server is running!");
-    console.log("Port: " + PORT);
-    console.log("IP: " + process.env.IP);
-    console.log("Database Url: " + DATABASEURL);
 });
