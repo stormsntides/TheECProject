@@ -9,9 +9,9 @@ var express = require("express"),
 var indexRoutes = require("./routes/index"),
     blogRoutes = require("./routes/blog"),
     aboutRoutes = require("./routes/about"),
-    musicRoutes = require("./routes/music"),
     codeRoutes = require("./routes/code"),
-    productRoutes = require("./routes/product-search");
+    productRoutes = require("./routes/product-search"),
+    johnnyRoutes = require("./routes/johnny");
 
 var PORT = process.env.PORT || "8081",
     DATABASEURL = process.env.DATABASEURL || "mongodb://testdata_admin:TheECProject_Data@ds155288.mlab.com:55288/ec_testdata";
@@ -29,9 +29,9 @@ app.use(methodOverride("_method"));
 app.use(indexRoutes);
 app.use("/blog", blogRoutes);
 app.use("/about", aboutRoutes);
-app.use("/music", musicRoutes);
 app.use("/code", codeRoutes);
 app.use("/product", productRoutes);
+app.use("/johnny", johnnyRoutes);
 
 app.listen(PORT, process.env.IP, function(){
     console.log("ECP server is running!");
