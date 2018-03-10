@@ -2,8 +2,8 @@
 
 function updateEditForm(productID){
   // need to retrieve the product from the database and input each value into the edit form
-  $.getJSON("/product/" + productID, function(data){
-    $("#edit-form").attr("action", "/product/" + data._id + "?_method=PUT");
+  $.getJSON("/demo/product/" + productID, function(data){
+    $("#edit-form").attr("action", "/demo/product/" + data._id + "?_method=PUT");
     $("#edit-form input[name='product[code]']").val(data.code);
     $("#edit-form input[name='product[name]']").val(data.info.name);
     $("#edit-form input[name='product[manu]']").val(data.info.manu);
@@ -39,32 +39,32 @@ function formatFoundProducts(foundProducts) {
 function createPagination(productCount, currentPage, maxPage){
   let $pages = $(".pagination");
   $pages.empty();
-  
+
   // let maxPage = Math.ceil(productCount / pageSize);
   // let curPage = (currentPage <= 0 ? maxPage : (currentPage > maxPage ? 1 : currentPage));
-  
+
   console.log("CurrentPage: " + currentPage + ", MaxPage: " + maxPage);
   // console.log("MaxPage: " + maxPage + ", CurPage: " + curPage);
   for(let i = 1; i <= maxPage; i++){
     // let isActive = (i + 1) === curPage;
     let isActive = i === currentPage;
-    
+
     let $newPage = $("<li></li>");
     $newPage.addClass((isActive ? "red darken-4 " : "") + "waves-effect");
-    
+
     let $newLink = $("<a href='#!'>" + i + "</a>");
     $newLink.addClass((isActive ? "active-page " : "") + "grey-text text-lighten-2");
     $newLink.data("page", i);
-    
+
     $newPage.append($newLink);
     $pages.append($newPage);
   }
-  
+
   let $prev = $("<li></li>");
   $prev.addClass("waves-effect");
   let $next = $("<li></li>");
   $next.addClass("waves-effect");
-  
+
   let $prevLink = $("<a href='#!'></a>");
   $prevLink.addClass("grey-text text-lighten-2");
   $prevLink.data("page", "prev");
@@ -73,10 +73,10 @@ function createPagination(productCount, currentPage, maxPage){
   $nextLink.addClass("grey-text text-lighten-2");
   $nextLink.data("page", "next");
   $nextLink.html("<i class='material-icons'>chevron_right</i>");
-  
+
   $prev.append($prevLink);
   $next.append($nextLink);
-  
+
   $pages.prepend($prev);
   $pages.append($next);
 }
@@ -84,11 +84,11 @@ function createPagination(productCount, currentPage, maxPage){
 function updatePagination(productCount, currentPage, maxPage){
   if($(".pagination").children("li").length === maxPage + 2){
     console.log("Updating pagination");
-    
+
     let $oldParent = $(".active-page").parent("li");
     $oldParent.removeClass("red darken-4");
     $oldParent.children("a").removeClass("active-page");
-    
+
     let $newParent = $(".pagination > li:nth-of-type(" + (currentPage + 1) + ")");
     $newParent.addClass("red darken-4");
     $newParent.children("a").addClass("active-page");
@@ -122,7 +122,7 @@ function loadResults(searchTerm, page=1, size=20){
   let term = /\S/.test(searchTerm) ? searchTerm : "all";
   $('.collapsible').collapsible('destroy');
   // send the "none" value as the id to the server; it will be recognized as a search query instead
-  $.getJSON("/product/none?search=" + term + "&page=" + page + "&pagesize=" + size, function(data){
+  $.getJSON("/demo/product/none?search=" + term + "&page=" + page + "&pagesize=" + size, function(data){
     let $results = $("#results");
     $results.fadeOut(300, "linear", function() {
       $results.html(formatFoundProducts(data.results));
@@ -189,7 +189,7 @@ $(function() {
       loadResults("all");
     });
   });
-  
+
   $deleteForm.on("submit", function(e) {
     e.preventDefault();
     $.ajax({
@@ -202,7 +202,7 @@ $(function() {
       loadResults(searchTerm);
     });
   });
-  
+
   $editForm.on("submit", function(e) {
     e.preventDefault();
     $.ajax({
@@ -222,7 +222,7 @@ $(function() {
     search($search.val());
     $search.val("");
   });
-  
+
   $results.on("click", "a", function(e){
     if($(this).attr("target") !== "_blank"){
       e.preventDefault();
@@ -230,11 +230,11 @@ $(function() {
       updateEditForm(productID);
     }
   });
-  
+
   $pages.on("click", "a", function(e){
     e.preventDefault();
     let searchTerm = $(".recent-searches a:first").text();
-    
+
     if($(this).data("page") === "prev"){
       let active = $(".active-page").data("page");
       loadResults(searchTerm, active - 1);
@@ -245,14 +245,14 @@ $(function() {
       loadResults(searchTerm, $(this).data("page"));
     }
   });
-  
+
   $deleteBtn.on("click", function(e){
     e.preventDefault();
     $deleteForm.attr("action", $editForm.attr("action").replace("PUT", "DELETE"));
     $("#delete-product-code").text($editForm.find("input[name='product[code]']").val());
     $("#delete-product-name").text($editForm.find("input[name='product[name]']").val());
   });
-  
+
   // go ahead and populate page with all entries
   loadResults("all");
 });

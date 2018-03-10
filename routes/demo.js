@@ -2,13 +2,24 @@ var express = require("express"),
   router = express.Router(),
   Product = require("../models/product");
 
+// CODE ROUTES
+router.get("/code/", function(req, res){
+    res.render("code/index");
+});
+
+// JOHNNY ROUTES
+router.get("/johnny/", function(req, res){
+    res.render("johnny/index");
+});
+
+// PRODUCT SEARCH ROUTES
 // INDEX
-router.get("/", function(req, res) {
+router.get("/product/", function(req, res) {
   res.render("productSearch/index");
 });
 
 // SHOW
-router.get("/:id", function(req, res){
+router.get("/product/:id", function(req, res){
   console.log("ID: " + req.params.id);
   console.log("Search: " + req.query.search);
   if(req.params.id !== "none"){
@@ -29,10 +40,10 @@ router.get("/:id", function(req, res){
       } else {
         let page = req.query.page ? parseInt(req.query.page) - 1 : 0;
         let pageSize = req.query.pagesize ? parseInt(req.query.pagesize) : 20;
-        
+
         let maxPage = Math.ceil(productCount / pageSize);
         let curPage = (page < 0 ? maxPage - 1 : (page >= maxPage ? 0 : page));
-        
+
         let options = {skip: curPage * pageSize, limit: pageSize};
         Product.find({tags: RegExp(term, "i")}, null, options, function(err, foundProducts) {
           if(err || !foundProducts){
@@ -50,7 +61,7 @@ router.get("/:id", function(req, res){
 });
 
 // CREATE
-router.post("/", function(req, res) {
+router.post("/product/", function(req, res) {
   // keep database load reasonable for demo purposes
   Product.count({}, function(err, total){
     if(err){
@@ -76,7 +87,7 @@ router.post("/", function(req, res) {
 });
 
 // UPDATE
-router.put("/:id", function(req, res) {
+router.put("/product/:id", function(req, res) {
   let updatedProduct = formatProduct(req.body.product);
   Product.findByIdAndUpdate(req.params.id, updatedProduct, function(err, oldProduct) {
     if (err) {
@@ -89,7 +100,7 @@ router.put("/:id", function(req, res) {
 });
 
 // DESTROY
-router.delete("/:id", function(req, res) {
+router.delete("/product/:id", function(req, res) {
   console.log("Request Body ID: " + req.params.id);
   Product.findByIdAndRemove(req.params.id, function(err) {
     if (err) {
