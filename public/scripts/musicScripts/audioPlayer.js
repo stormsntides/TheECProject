@@ -60,6 +60,8 @@ function updateTime($audioPlayer){
 
   displayTime($audioPlayer);
   $audioPlayer.find(".audio-control.time").val($audio[0].currentTime);
+  let percentage = ($audio[0].currentTime / $audio[0].duration) * 100;
+  $audioPlayer.find(".audio-control.progress-bar").css({width: percentage + "%"});
 
   updatePlayingIcon($audioPlayer);
 
@@ -113,6 +115,12 @@ function muteToggle($audioPlayer){
 }
 
 //make it so displays start off with generic data and don't  require $audio[0] to be loaded yet
+
+function initProgressBar($audioPlayer){
+  let $time = $audioPlayer.find(".audio-control.time");
+  let $progressBar = $("<div class=''")
+  $time.after();
+}
 
 function initDisplays($audioPlayer){
   let $audio = $audioPlayer.find("audio.active");

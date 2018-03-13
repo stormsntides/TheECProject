@@ -1,0 +1,79 @@
+.custom-input {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  height: 16px;
+}
+
+.custom-input:hover > .range-input {
+  height: 6px;
+  transition: height 0.1s;
+}
+
+.custom-input:hover > .range-input > .prev-range {
+  height: 6px;
+  transition: height 0.1s;
+}
+
+.custom-input:hover > .range-input > .range-thumb {
+  border: 1px solid #f00;
+  height: 12px;
+  width: 12px;
+  transition: height width 0.1s;
+}
+
+.range-input,
+.range-input > .prev-range,
+.range-input > .next-range {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.range-input {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  height: 4px;
+  width: 100%;
+  cursor: pointer;
+  background-color: #919191;
+  transition: height 0.1s;
+}
+
+.range-input > .prev-range {
+  background-color: #f00;
+  height: 4px;
+  transition: height 0.1s;
+}
+
+.range-input > .range-thumb {
+  position: absolute;
+  background-color: #f00;
+  height: 0;
+  width: 0;
+  border-radius: 50%;
+  transition: height width 0.1s;
+}
+
+/* Applied via Javascript to the HTML tag */
+
+.active-hover {
+  cursor: pointer;
+}
+
+.active-hover .custom-input > .range-input {
+  height: 6px;
+  transition: height 0.1s;
+}
+
+.active-hover .custom-input > .range-input > .prev-range {
+  height: 6px;
+  transition: height 0.1s;
+}
+
+.active-hover .custom-input > .range-input > .range-thumb {
+  border: 1px solid #f00;
+  height: 12px;
+  width: 12px;
+  transition: height width 0.1s;
+}

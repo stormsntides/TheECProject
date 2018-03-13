@@ -2,6 +2,12 @@
   margin-left: auto;
 }
 
+.overlay {
+  position: absolute;
+  top: 40%;
+  left: 0;
+}
+
 .audio-player .audio-control.collapsible,
 .audio-player .audio-control.collapsible .collapsible-header,
 .audio-player .audio-control.collapsible .collapsible-body {

@@ -3,20 +3,22 @@
   <head>
     <title>Johnny Cotten Music</title>
     <meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#0d47a1">
+    <meta name="theme-color" content="#212121">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/stylesheets/general-styles.css">
+    <link rel="stylesheet" href="/stylesheets/johnnyStyles/johnny-styles.css">
   </head>
   <body class="black">
+    <!-- Header navbar; Main site navigation -->
     <header>
-      <!-- Header navbar; Main site navigation -->
       <nav id="main-navbar">
         <div class="navbar-fixed">
           <nav class="grey darken-4">
             <div class="nav-wrapper container">
-              <a href="#top" class="brand-logo center"><span class="hide-on-med-and-up">JCMusic</span><span class="hide-on-small-only">Johnny Cotten Music</span></a>
+              <a href="#top" class="brand-logo center hide-on-med-only"><span class="hide-on-med-and-up">JCMusic</span><span class="hide-on-small-only">Johnny Cotten Music</span></a>
+              <a href="#top" class="brand-logo left hide-on-small-only hide-on-large-only">Johnny Cotten Music</a>
               <a href="#" data-activates="mobile-nav" class="button-collapse right hide-on-med-and-up"><i class="material-icons">menu</i></a>
             </div>
           </nav>
@@ -25,55 +27,59 @@
         <ul class="side-nav grey darken-4" id="mobile-nav">
           <li><a href="#top" class="white-text"><i class="material-icons">chevron_right</i> Johnny Cotten</a></li>
           <li><a href="#about" class="white-text"><i class="material-icons">chevron_right</i> About</a></li>
-          <li><a href="#portfolio" class="white-text"><i class="material-icons">chevron_right</i> Portfolio</a></li>
+          <li><a href="#music" class="white-text"><i class="material-icons">chevron_right</i> Music</a></li>
           <li><a href="#contact" class="white-text"><i class="material-icons">chevron_right</i> Contact</a></li>
         </ul>
       </nav>
     </header> <!-- end Nav -->
     <!-- Content down here -->
     <main>
-      <div id="top" class="parallax-container">
+      <div id="top" class="parallax-container section scrollspy">
         <div class="parallax"><img src="/media/johnnyMedia/images/jc_studio_standing.jpg"></div>
       </div>
-      <div id="about" class="parallax-container">
+      <div id="about" class="parallax-container section scrollspy">
         <div class="parallax"><img src="/media/johnnyMedia/images/jc_studio_pose.jpg"></div>
       </div>
-      <div id="portfolio" class="parallax-container">
+      <div id="music" class="parallax-container section scrollspy">
         <div class="parallax"><img src="/media/johnnyMedia/images/jc_guitar_bw.jpg"></div>
+        <div class="audio-player">
+          <div class="progress">
+            <div class="determinate" style="width: 30%"></div>
+          </div>
+        </div>
       </div>
-      <div id="contact" class="parallax-container">
+      <div id="contact" class="parallax-container section scrollspy">
         <div class="parallax"><img src="/media/johnnyMedia/images/jc_studio_sitting.jpg"></div>
       </div>
-      <div class="col hide-on-small-only m2 pin-top">
+      <div class="scroll-sidepanel hide-on-small-only">
         <ul class="section table-of-contents">
           <li><a href="#top">Johnny Cotten</a></li>
           <li><a href="#about">About</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#music">Music</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
+      <% include ../partials/johnnyPartials/jcCopyright %>
     </main>
 
-<% include ../partials/johnnyPartials/jcCopyright %>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-
-<script>
-  $(function(){
-    $(".button-collapse").sideNav({
-      menuWidth: 240,
-      edge: "left",
-      closeOnClick: true,
-      draggable: true
-    });
-    $(".dropdown-button").dropdown();
-    $('.modal').modal();
-    $('.parallax').parallax();
-    $('.scrollspy').scrollSpy({
-      scrollOffset: 70
-    });
-  });
-</script>
+    <script>
+      $(function(){
+        $(".button-collapse").sideNav({
+          menuWidth: 240,
+          edge: "left",
+          closeOnClick: true,
+          draggable: true
+        });
+        $(".dropdown-button").dropdown();
+        $('.modal').modal();
+        $('.parallax').parallax();
+        $('.scrollspy').scrollSpy({
+          scrollOffset: 55
+        });
+      });
+    </script>
 
 <% include ../partials/footer %>
