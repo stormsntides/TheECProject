@@ -1,67 +1,60 @@
-var isDown = false;
-
-function clamp(num, min, max){
-  if(min > max) { let temp = min; min = max; max = temp; }
-  return (num >= min ? (num <= max ? num : max) : min);
+function updateRangeBar($range){
+  //get components of the track for updating
+  let $prev = $range.siblings(".range-track").find(".range-prev"),
+      $next = $prev.siblings(".range-next");
+  //calculate the width of each out of 100%
+  let prevWidth = ($range.val() / $range.attr("max")) * 100,
+      nextWidth = 100 - prevWidth;
+  //set each width
+  $prev.css({"width": prevWidth + "%"});
+  $next.css({"width": nextWidth + "%"});
 }
 
-function validateData($range){
-  let min = $range.data("min"),
-      max = $range.data("max"),
-      value = $range.data("value");
-
-  if(!min || min < 0){
-    $range.data("min", 0);
-    min = $range.data("min");
-  }
-  if(!max || max < min){
-    $range.data("max", min + 100);
-    max = $range.data("max");
-  }
-  if(value){
-    $range.data("value", clamp(value, min, max));
-  } else {
-    $range.data("value", min);
-  }
+//initial setup of the .custom-range inputs
+function modifyRangeInputs(){
+  let $range = $("input[type='range'].custom-range");
+  $range.each(function(){
+    let boundRect = $(this)[0].getBoundingClientRect();
+    //create a container to hold all of the necessary parts of the slider
+    let $container = $("<div class='custom-range-container'></div>");
+    $(this).before($container);
+    $container.append($(this));
+    //create a container for the track to be displayed beneath the range input
+    let $track = $("<span class='range-track'></span>");
+    $container.append($track);
+    $track.css({
+      "left": boundRect.x,
+      "width": boundRect.width
+    });
+    //create the part of the track that comes before the thumb
+    let $prev = $("<span class='range-prev'></span>");
+    $track.append($prev);
+    $prev.css({
+      "width": "0"
+    });
+    //create the part of the track that comes after the thumb
+    let $next = $("<span class='range-next'></span>");
+    $track.append($next);
+    $next.css({
+      "width": "100%"
+    });
+  });
 }
 
-function updatePosition($range, e){
-  e.preventDefault();
-
-  let boundRect = $range[0].getBoundingClientRect();
-  let xClick = clamp(e.screenX - boundRect.x, 0, boundRect.width);
-  let prWidth = (xClick / boundRect.width) * 100;
-
-  $(".prev-range").css({"width": prWidth + "%"});
-  $range.find(".range-thumb").css({"left": (boundRect.x + xClick - 6) + "px"});
+function initRanges(){
+  //update each .custom-range that has an initial value
+  $("input[type='range'].custom-range").each(function(){
+    updateRangeBar($(this));
+  });
 }
 
 $(function(){
-  let $doc = $("html");
-  let $customInput = $(".custom-input");
-  let $range = $(".range-input");
-  let $prevRange = $("<span class='prev-range' style='width: 0'></span>");
-  let $rangeThumb = $("<span class='range-thumb' style='left:" + ($range[0].getBoundingClientRect().x - 6) + "px'></span>");
-  $range.attr("tabindex", 0);
-  $range.append($prevRange);
-  $range.append($rangeThumb);
-  validateData($range);
+  modifyRangeInputs();
+  initRanges();
 
-  $customInput.on("mousedown pointerdown", function(e){
-    $doc.addClass("active-hover");
-    isDown = true;
-    updatePosition($range, e);
-  });
-  $doc.on("mouseup pointerup", function(e){
-    if(isDown){
-      $doc.removeClass("active-hover");
-      isDown = false;
-      updatePosition($range, e);
-    }
-  });
-  $doc.on("mousemove pointermove", function(e){
-    if(isDown){
-      updatePosition($range, e);
-    }
+  $("input[type='range'].custom-range").on("input", function(e){
+    $("span.thumb").remove(); //remove materialize css thumb
+    $(this).removeClass("active");
+    updateRangeBar($(this));
   });
 });

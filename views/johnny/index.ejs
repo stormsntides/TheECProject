@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/stylesheets/general-styles.css">
     <link rel="stylesheet" href="/stylesheets/johnnyStyles/johnny-styles.css">
+    <link rel="stylesheet" href="/customLibraries/rangeInput/rangeStyle.css">
   </head>
   <body class="black">
     <!-- Header navbar; Main site navigation -->
@@ -42,9 +43,29 @@
       </div>
       <div id="music" class="parallax-container section scrollspy">
         <div class="parallax"><img src="/media/johnnyMedia/images/jc_guitar_bw.jpg"></div>
-        <div class="audio-player">
-          <div class="progress">
-            <div class="determinate" style="width: 30%"></div>
+        <div class="audio-player container">
+          <audio src="/media/music/From Dust To Form Mix 3.mp3" name="From Dust To Form"></audio>
+          <div class="card-panel grey darken-3">
+            <span class="audio-control label" for="title">(Click To Select Song)</span>
+            <input type="range" class="custom-range audio-control time" min="0" max="100" value="0">
+            <div class="valign-wrapper">
+              <a href="#!" class="audio-control skip" data-skip="prev"><i class="small material-icons">skip_previous</i></a>
+              <a href="#!" class="audio-control play"><i class="small material-icons">play_arrow</i></a>
+              <a href="#!" class="audio-control skip" data-skip="next"><i class="small material-icons">skip_next</i></a>
+              <span class="audio-control label grey-text text-lighten-3" for="time">0:00 / 0:00</span>
+              <div class="hide-on-small-only valign-wrapper pull-right">
+                <a href="#!" class="audio-control mute"><i class="small material-icons">volume_up</i></a>
+                <span class="range-field">
+                  <input class="audio-control volume" type="range" min="0" max="100" value="100">
+                </span>
+              </div>
+            </div>
+            <div class="hide-on-med-and-up valign-wrapper">
+              <a href="#!" class="audio-control mute"><i class="small material-icons">volume_up</i></a>
+              <span class="range-field">
+                <input class="audio-control volume" type="range" min="0" max="100" value="100">
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -81,5 +102,8 @@
         });
       });
     </script>
+
+    <script src="/customLibraries/rangeInput/rangeScript.js"></script>
+    <script src="/scripts/musicScripts/audioPlayer.js"></script>
 
 <% include ../partials/footer %>
