@@ -14,6 +14,20 @@ function playToggle($audioPlayer) {
   }
 }
 
+function play($audioPlayer){
+  let $audio = $audioPlayer.find("audio.active");
+  $audio[0].play();
+  $audioPlayer.find(".audio-control.play > i").text("pause");
+  $audioPlayer.find(".audio-control.label[for='title']").text($audio.attr("name") + " (Now Playing)");
+}
+
+function pause($audioPlayer){
+  let $audio = $audioPlayer.find("audio.active");
+  $audio[0].pause();
+  $audioPlayer.find(".audio-control.play > i").text("play_arrow");
+  $audioPlayer.find(".audio-control.label[for='title']").text($audio.attr("name") + " (Paused)");
+}
+
 //Stop song by setting the current time to 0 and pausing the song.
 function stop($audioPlayer){
   let $audio = $audioPlayer.find("audio.active");
@@ -61,10 +75,7 @@ function updateTime($audioPlayer){
   displayTime($audioPlayer);
   let $time = $audioPlayer.find(".audio-control.time");
   $time.val($audio[0].currentTime);
-
-  if($time.hasClass("custom-range")){
-    updateRangeBar($time);
-  }
+  $time.trigger("change");
 
   updatePlayingIcon($audioPlayer);
 
@@ -202,6 +213,15 @@ $(function(){
   $(".audio-control.mute").on("click", function(e){
     e.preventDefault();
     muteToggle($(this).parents(".audio-player"));
+  });
+  $(".audio-control.time").on("input", function(e){
+    setProgress($(this).parents(".audio-player"), $(this));
+  });
+  $(".audio-control.time").on("mousedown pointerdown", function(e){
+    pause($(this).parents(".audio-player"));
+  });
+  $(".audio-control.time").on("mouseup pointerup", function(e){
+    play($(this).parents(".audio-player"));
   });
   $(".audio-control.time").on("input", function(e){
     setProgress($(this).parents(".audio-player"), $(this));

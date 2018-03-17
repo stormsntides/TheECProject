@@ -1,43 +1,42 @@
 function updateRangeBar($range){
   //get components of the track for updating
-  let $prev = $range.siblings(".range-track").find(".range-prev"),
-      $next = $prev.siblings(".range-next");
-  //calculate the width of each out of 100%
-  let prevWidth = ($range.val() / $range.attr("max")) * 100,
-      nextWidth = 100 - prevWidth;
-  //set each width
-  $prev.css({"width": prevWidth + "%"});
-  $next.css({"width": nextWidth + "%"});
+  let $progress = $range.siblings(".range-track").find(".range-progress");
+  //calculate and set the width
+  let prevWidth = ($range.val() / $range.attr("max")) * 100;
+  $progress.css({"width": prevWidth + "%"});
 }
 
 //initial setup of the .custom-range inputs
 function modifyRangeInputs(){
   let $range = $("input[type='range'].custom-range");
   $range.each(function(){
+    let trackClasses = $(this).data("track-class"),
+        progressClasses = $(this).data("progress-class"),
+        thumbClasses = $(this).data("thumb-class");
+
     let boundRect = $(this)[0].getBoundingClientRect();
     //create a container to hold all of the necessary parts of the slider
-    let $container = $("<div class='custom-range-container'></div>");
-    $(this).before($container);
-    $container.append($(this));
+    let $wrapper = $("<div class='custom-range-wrapper'></div>");
+    $(this).before($wrapper);
+    $wrapper.append($(this));
     //create a container for the track to be displayed beneath the range input
     let $track = $("<span class='range-track'></span>");
-    $container.append($track);
+    $track.addClass(trackClasses ? trackClasses : "");
+    $wrapper.append($track);
     $track.css({
-      "left": boundRect.x,
       "width": boundRect.width
     });
     //create the part of the track that comes before the thumb
-    let $prev = $("<span class='range-prev'></span>");
-    $track.append($prev);
-    $prev.css({
+    let $progress = $("<span class='range-progress'></span>");
+    $progress.addClass(progressClasses ? progressClasses : "");
+    $track.append($progress);
+    $progress.css({
       "width": "0"
     });
-    //create the part of the track that comes after the thumb
-    let $next = $("<span class='range-next'></span>");
-    $track.append($next);
-    $next.css({
-      "width": "100%"
-    });
+
+    let $thumb = $("<span class='range-thumb'></span>");
+    $thumb.addClass(thumbClasses ? thumbClasses : "");
+    $track.append($thumb);
   });
 }
 
@@ -56,5 +55,12 @@ $(function(){
     $("span.thumb").remove(); //remove materialize css thumb
     $(this).removeClass("active");
     updateRangeBar($(this));
+  });
+  $("input[type='range'].custom-range").on("change", function(e){
+    $(this).removeClass("active-range");
+    updateRangeBar($(this));
+  });
+  $("input[type='range'].custom-range").on("mousedown pointerdown", function(e){
+    $(this).addClass("active-range");
   });
 });
