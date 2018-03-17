@@ -14,7 +14,6 @@ function modifyRangeInputs(){
         progressClasses = $(this).data("progress-class"),
         thumbClasses = $(this).data("thumb-class");
 
-    let boundRect = $(this)[0].getBoundingClientRect();
     //create a container to hold all of the necessary parts of the slider
     let $wrapper = $("<div class='custom-range-wrapper'></div>");
     $(this).before($wrapper);
@@ -23,9 +22,6 @@ function modifyRangeInputs(){
     let $track = $("<span class='range-track'></span>");
     $track.addClass(trackClasses ? trackClasses : "");
     $wrapper.append($track);
-    $track.css({
-      "width": boundRect.width
-    });
     //create the part of the track that comes before the thumb
     let $progress = $("<span class='range-progress'></span>");
     $progress.addClass(progressClasses ? progressClasses : "");

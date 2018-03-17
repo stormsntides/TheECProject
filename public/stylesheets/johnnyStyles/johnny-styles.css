@@ -11,18 +11,22 @@
 	position: fixed !important;
 }
 
-.scroll-sidepanel {
-  position: fixed;
-  top: 0;
-  right: 0;
-  padding: 50px 30px 0 10px;
-  background-color: rgba(0, 0, 0, 0.5);
-  height: 100%;
+.flex-container {
+	display: flex;
+	flex-flow: row nowrap;
 }
 
-footer {
-  position: relative;
-  bottom: 0;
-  width: 100%;
-  z-index: 10000;
+.main-content {
+	width: 100%;
+}
+
+.side-content {
+	height: 100%;
+	width: 235px;
+}
+
+.scroll-sidebar {
+  position: fixed;
+  top: 50px;
+  right: 40px;
 }

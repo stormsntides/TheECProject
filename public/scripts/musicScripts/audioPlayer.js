@@ -1,3 +1,18 @@
+function validateActiveAudio($obj) {
+  //check to see if passed in jQuery object is an audio player; otherwise, find it
+  let $audioPlayer = ($obj.hasClass("audio-player") ? $obj : $obj.parents(".audio-player"));
+
+  //check for active audio; if none, set first audio in audio player to active
+  let $audio = $audioPlayer.find("audio.active");
+  if(!$audio[0]){
+    $audio = $audioPlayer.find("audio").first();
+    $audio.addClass("active");
+  }
+
+  //return the audio player for easy chaining in event listeners
+  return $audioPlayer;
+}
+
 //Does a switch of the play/pause with one button.
 function playToggle($audioPlayer) {
   let $audio = $audioPlayer.find("audio.active");
@@ -109,7 +124,7 @@ function updateVolumeIcon($audioPlayer){
     } else {
       $volumeIcon.text("volume_up");
     }
-    let level = Math.floor($audio[0].volume * 100);
+    let level = Math.round($audio[0].volume * 100);
     $audioPlayer.find(".audio-control.label[for='volume']").html(level + "%");
   }
 }
@@ -173,19 +188,7 @@ function skipTo($audioPlayer, skipTo){
   }
 }
 
-function initAudioPlayers(){
-  $(".audio-player").each(function(){
-    let $audioPlayer = $(this);
-    //find active audio in player; if none, make first tag active
-    if(!$audioPlayer.find("audio.active")[0]){
-      $audioPlayer.find("audio").first().addClass("active");
-    }
-    initDisplays($audioPlayer);
-  });
-}
-
 $(function(){
-  initAudioPlayers();
   $('.modal').modal();
   $("audio").on("timeupdate", function(e){
     if($(this).hasClass("active")){
@@ -194,39 +197,40 @@ $(function(){
   });
   $(".audio-control.select").on("click", function(e){
     e.preventDefault();
-    let $audioPlayer = $(this).parents(".audio-player");
+    let $audioPlayer = validateActiveAudio($(this));
+
     loadSongByName($audioPlayer, $(this).attr("for"));
     playToggle($audioPlayer);
   });
   $(".audio-control.play").on("click", function(e){
     e.preventDefault();
-    playToggle($(this).parents(".audio-player"));
+    playToggle(validateActiveAudio($(this)));
   });
   $(".audio-control.skip").on("click", function(e){
     e.preventDefault();
-    skipTo($(this).parents(".audio-player"), $(this).data("skip"));
+    skipTo(validateActiveAudio($(this)), $(this).data("skip"));
   });
   $(".audio-control.stop").on("click", function(e){
     e.preventDefault();
-    stop($(this).parents(".audio-player"));
+    stop(validateActiveAudio($(this)));
   });
   $(".audio-control.mute").on("click", function(e){
     e.preventDefault();
-    muteToggle($(this).parents(".audio-player"));
+    muteToggle(validateActiveAudio($(this)));
   });
   $(".audio-control.time").on("input", function(e){
-    setProgress($(this).parents(".audio-player"), $(this));
+    setProgress(validateActiveAudio($(this)), $(this));
   });
   $(".audio-control.time").on("mousedown pointerdown", function(e){
-    pause($(this).parents(".audio-player"));
+    pause(validateActiveAudio($(this)));
   });
   $(".audio-control.time").on("mouseup pointerup", function(e){
-    play($(this).parents(".audio-player"));
+    play(validateActiveAudio($(this)));
   });
   $(".audio-control.time").on("input", function(e){
-    setProgress($(this).parents(".audio-player"), $(this));
+    setProgress(validateActiveAudio($(this)), $(this));
   });
   $(".audio-control.volume").on("input", function(e){
-    setVolume($(this).parents(".audio-player"), $(this));
+    setVolume(validateActiveAudio($(this)), $(this));
   });
 });

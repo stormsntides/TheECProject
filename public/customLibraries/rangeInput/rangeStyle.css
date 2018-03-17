@@ -1,6 +1,6 @@
 input[type=range].custom-range {
   position: relative;
-  z-index: 5010;
+  z-index: 510;
   box-sizing: border-box;
   border: none;
   margin: 0;
@@ -11,6 +11,7 @@ input[type=range].custom-range {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+  position: relative; /*needed to allow dynamic width of absolute position range-track*/
 }
 
 .custom-range-wrapper span.thumb {
@@ -20,11 +21,13 @@ input[type=range].custom-range {
 .custom-range-wrapper .range-track {
   box-sizing: border-box;
   position: absolute;
-  z-index: 5000;
+  left: 0;
+  z-index: 500;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   height: 3px;
+  width: 100%;
   transition: height 0.1s;
   background-color: #aaa;
 }
