@@ -1,3 +1,10 @@
+function loadSongByName($audioPlayer, nameToLoad){
+  stop($audioPlayer);
+  $audioPlayer.find("audio.active").removeClass("active");
+  $audioPlayer.find("audio[name='" + nameToLoad + "']").addClass("active");
+  initDisplays($audioPlayer);
+}
+
 function validateActiveAudio($obj) {
   //check to see if passed in jQuery object is an audio player; otherwise, find it
   let $audioPlayer = ($obj.hasClass("audio-player") ? $obj : $obj.parents(".audio-player"));
@@ -7,6 +14,7 @@ function validateActiveAudio($obj) {
   if(!$audio[0]){
     $audio = $audioPlayer.find("audio").first();
     $audio.addClass("active");
+    loadSongByName($audioPlayer, $audio.attr("name"));
   }
 
   //return the audio player for easy chaining in event listeners
@@ -157,13 +165,6 @@ function initDisplays($audioPlayer){
   setVolume($audioPlayer, $audioPlayer.find(".audio-control.volume"));
 }
 
-function loadSongByName($audioPlayer, nameToLoad){
-  stop($audioPlayer);
-  $audioPlayer.find("audio.active").removeClass("active");
-  $audioPlayer.find("audio[name='" + nameToLoad + "']").addClass("active");
-  initDisplays($audioPlayer);
-}
-
 function skipTo($audioPlayer, skipTo){
   let $audio = $audioPlayer.find("audio");
   let activePos = 0;
@@ -198,7 +199,7 @@ $(function(){
   $(".audio-control.select").on("click", function(e){
     e.preventDefault();
     let $audioPlayer = validateActiveAudio($(this));
-
+    
     loadSongByName($audioPlayer, $(this).attr("for"));
     playToggle($audioPlayer);
   });
