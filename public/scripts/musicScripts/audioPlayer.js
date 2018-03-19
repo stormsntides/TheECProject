@@ -27,27 +27,23 @@ function playToggle($audioPlayer) {
 
   //Checks to see if the song is paused, if it is, play it from where it left off otherwise pause it.
   if ($audio[0].paused){
-    $audio[0].play();
-    $audioPlayer.find(".audio-control.play > i").text("pause");
-    $audioPlayer.find(".audio-control.label[for='title']").text($audio.attr("name") + " (Now Playing)");
+    play($audioPlayer);
   } else {
-    $audio[0].pause();
-    $audioPlayer.find(".audio-control.play > i").text("play_arrow");
-    $audioPlayer.find(".audio-control.label[for='title']").text($audio.attr("name") + " (Paused)");
+    pause($audioPlayer);
   }
 }
 
 function play($audioPlayer){
   let $audio = $audioPlayer.find("audio.active");
   $audio[0].play();
-  $audioPlayer.find(".audio-control.play > i").text("pause");
+  $audioPlayer.find(".audio-control.play .play-icon").text("pause");
   $audioPlayer.find(".audio-control.label[for='title']").text($audio.attr("name") + " (Now Playing)");
 }
 
 function pause($audioPlayer){
   let $audio = $audioPlayer.find("audio.active");
   $audio[0].pause();
-  $audioPlayer.find(".audio-control.play > i").text("play_arrow");
+  $audioPlayer.find(".audio-control.play .play-icon").text("play_arrow");
   $audioPlayer.find(".audio-control.label[for='title']").text($audio.attr("name") + " (Paused)");
 }
 
@@ -57,7 +53,7 @@ function stop($audioPlayer){
   $audio[0].currentTime = 0;
   $audio[0].pause();
   $audioPlayer.find(".audio-control.time").val($audio[0].currentTime);
-  $audioPlayer.find(".audio-control.play > i").text("play_arrow");
+  $audioPlayer.find(".audio-control.play .play-icon").text("play_arrow");
   $audioPlayer.find(".audio-control.label[for='title']").text($audio.attr("name") + " (Paused)");
   $audioPlayer.find(".audio-control.select[for='" + $audio.attr("name") + "'] .audio-control.label[for='playing']").text("");
 }
@@ -159,10 +155,10 @@ function initDisplays($audioPlayer){
   let $audio = $audioPlayer.find("audio.active");
   $audioPlayer.find(".audio-control.time").attr("max", $audio[0].duration);
   $audioPlayer.find(".audio-control.time").val(0);
-  $audioPlayer.find(".audio-control.play > i").text("play_arrow");
+  $audioPlayer.find(".audio-control.volume").val(100);
+  $audioPlayer.find(".audio-control.play .play-icon").text("play_arrow");
   $audioPlayer.find(".audio-control.label[for='title']").text($audio.attr("name") + " (Paused)");
   displayTime($audioPlayer);
-  setVolume($audioPlayer, $audioPlayer.find(".audio-control.volume"));
 }
 
 function skipTo($audioPlayer, skipTo){
@@ -189,7 +185,20 @@ function skipTo($audioPlayer, skipTo){
   }
 }
 
+function initAudio(){
+  $(".audio-player").each(function(){
+    let $audio = $(this).find("audio.active");
+    if(!$audio[0]){
+      let $first = $(this).find("audio").first();
+      $first.addClass("active");
+      initDisplays($(this));
+    }
+  });
+}
+
 $(function(){
+  initAudio();
+
   $('.modal').modal();
   $("audio").on("timeupdate", function(e){
     if($(this).hasClass("active")){
@@ -199,7 +208,7 @@ $(function(){
   $(".audio-control.select").on("click", function(e){
     e.preventDefault();
     let $audioPlayer = validateActiveAudio($(this));
-    
+
     loadSongByName($audioPlayer, $(this).attr("for"));
     playToggle($audioPlayer);
   });
