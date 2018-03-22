@@ -153,7 +153,8 @@ function muteToggle($audioPlayer){
 
 function initDisplays($audioPlayer){
   let $audio = $audioPlayer.find("audio.active");
-  $audioPlayer.find(".audio-control.time").attr("max", $audio[0].duration);
+  // $audioPlayer.find(".audio-control.time").attr("max", $audio[0].duration);
+  $audioPlayer.find(".audio-control.time").attr("max", 100);
   $audioPlayer.find(".audio-control.time").val(0);
   $audioPlayer.find(".audio-control.volume").val(100);
   $audioPlayer.find(".audio-control.play .play-icon").text("play_arrow");

@@ -17,7 +17,7 @@
     <header>
       <nav id="main-navbar">
         <div class="navbar-fixed">
-          <nav class="grey darken-4">
+          <nav class="brown darken-4">
             <div class="nav-wrapper container">
               <a href="#top" class="brand-logo center hide-on-med-only"><span class="hide-on-med-and-up">JCMusic</span><span class="hide-on-small-only">Johnny Cotten Music</span></a>
               <a href="#top" class="brand-logo left hide-on-small-only hide-on-large-only">Johnny Cotten Music</a>
@@ -26,11 +26,11 @@
           </nav>
         </div>
         <!-- The side nav must be outside of the tag with the navbar-fixed class; for some reason it breaks it -->
-        <ul class="side-nav grey darken-4" id="mobile-nav">
-          <li><a href="#top" class="white-text"><i class="material-icons">chevron_right</i> Johnny Cotten</a></li>
-          <li><a href="#about" class="white-text"><i class="material-icons">chevron_right</i> About</a></li>
-          <li><a href="#music" class="white-text"><i class="material-icons">chevron_right</i> Music</a></li>
-          <li><a href="#contact" class="white-text"><i class="material-icons">chevron_right</i> Contact</a></li>
+        <ul class="side-nav see-through" id="mobile-nav">
+          <li><a href="#top" class="white-text"><i class="white-text material-icons">chevron_right</i> Johnny Cotten</a></li>
+          <li><a href="#about" class="white-text"><i class="white-text material-icons">chevron_right</i> About</a></li>
+          <li><a href="#music" class="white-text"><i class="white-text material-icons">chevron_right</i> Music</a></li>
+          <li><a href="#contact" class="white-text"><i class="white-text material-icons">chevron_right</i> Contact</a></li>
         </ul>
       </nav>
     </header> <!-- end Nav -->
@@ -40,16 +40,16 @@
         <div id="top" class="parallax-container section scrollspy">
           <div class="parallax"><img src="/media/johnnyMedia/images/jc_studio_standing.jpg"></div>
         </div>
-        <div id="about" class="grey darken-4 section scrollspy">
+        <div id="about" class="brown darken-3 section scrollspy">
           <div class="row">
             <div class="col s12 m4 l3">
               <img class="responsive-img" src="/media/johnnyMedia/images/jc_studio_pose.jpg">
             </div>
             <div class="col s12 m8 l9">
               <p class="grey-text text-lighten-3" style="white-space: pre-wrap">
-                  Johnny Cotten is a music producer from Nashville, TN. He has years of experience creating and designing audio that fits anyone's tastes. Drawing influence from many artists in the genres of Rock, Country, Electronic, and Metal, he has the ability to develop sounds that blend together and capture the listener's attention.
+                Johnny Cotten is a music producer from Nashville, TN. He has years of experience creating and designing audio that fits anyone's tastes. Drawing influence from many artists in the genres of Rock, Country, Electronic, and Metal, he has the ability to develop sounds that blend together and capture the listener's attention.
 
-                  As a creator, he is now building and liscensing his music to use in any project. If a driving Rock rhythm is what you need or a relaxing Electronic piece is required, the choices are limitless as to what Johnny Cotten can provide. Feel free to <a href="#contact">contact</a> him for pricing and services. Feel free to check out some of the <a href="#music">samples</a> that are available to listen to.
+                As a creator, he is now building and licensing his music to use in any project. If a driving Rock rhythm is what you need or a relaxing Electronic beat is required, the choices are limitless as to what Johnny Cotten can provide. Feel free to <a href="#contact">contact</a> him for pricing and services as well as check out some of the <a href="#music">samples</a> that are available to listen to.
               </p>
             </div>
           </div>
@@ -60,11 +60,11 @@
             <% include ../partials/johnnyPartials/jcAudioPlayer %>
           </div>
         </div>
-        <div id="contact" class="grey darken-4 section scrollspy">
+        <div id="contact" class="brown darken-3 section scrollspy">
           <div class="row">
             <div class="col s12">
               <h2 class="grey-text text-lighten-3">Contact Me</h2>
-              <p class="flow-text grey-text text-lighten-3">If you need pricing on liscensing or audio-production. I check every message and will get back to you as soon as I can.</p>
+              <p class="flow-text grey-text text-lighten-3">If you need pricing on licensing or audio-production. I check every message and will get back to you as soon as I can.</p>
             </div>
           </div>
           <form action="">
@@ -122,7 +122,7 @@
       $(function(){
         $(".button-collapse").sideNav({
           menuWidth: 240,
-          edge: "left",
+          edge: "right",
           closeOnClick: true,
           draggable: true
         });
