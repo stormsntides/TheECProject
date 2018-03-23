@@ -3,14 +3,14 @@
   <head>
     <title>Johnny Cotten Music</title>
     <meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#212121">
+    <meta name="theme-color" content="#3e2723">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/stylesheets/general-styles.css">
-    <link rel="stylesheet" href="/stylesheets/johnnyStyles/johnny-styles.css">
-    <link rel="stylesheet" href="/stylesheets/musicStyles/audioPlayer.css">
-    <link rel="stylesheet" href="/customLibraries/rangeInput/rangeStyle.css">
+    <link rel="stylesheet" href="/public/stylesheets/general-styles.css">
+    <link rel="stylesheet" href="/public/stylesheets/johnnyStyles/johnny-styles.css">
+    <link rel="stylesheet" href="/public/stylesheets/musicStyles/audioPlayer.css">
+    <link rel="stylesheet" href="/public/customLibraries/rangeInput/rangeStyle.css">
   </head>
   <body class="black">
     <!-- Header navbar; Main site navigation -->
@@ -38,12 +38,12 @@
     <main class="flex-container">
       <div class="main-content">
         <div id="top" class="parallax-container section scrollspy">
-          <div class="parallax"><img src="/media/johnnyMedia/images/jc_studio_standing.jpg"></div>
+          <div class="parallax"><img src="/public/media/johnnyMedia/images/jc_studio_standing.jpg"></div>
         </div>
         <div id="about" class="brown darken-3 section scrollspy">
           <div class="row">
             <div class="col s12 m4 l3">
-              <img class="responsive-img" src="/media/johnnyMedia/images/jc_studio_pose.jpg">
+              <img class="responsive-img" src="/public/media/johnnyMedia/images/jc_studio_pose.jpg">
             </div>
             <div class="col s12 m8 l9">
               <p class="grey-text text-lighten-3" style="white-space: pre-wrap">
@@ -55,7 +55,7 @@
           </div>
         </div>
         <div id="music" class="parallax-container section scrollspy">
-          <div class="parallax"><img src="/media/johnnyMedia/images/jc_guitar_bw.jpg"></div>
+          <div class="parallax"><img src="/public/media/johnnyMedia/images/jc_guitar_bw.jpg"></div>
           <div class="container">
             <% include ../partials/johnnyPartials/jcAudioPlayer %>
           </div>
@@ -91,7 +91,7 @@
           </form>
         </div>
         <div class="parallax-container">
-          <div class="parallax"><img src="/media/johnnyMedia/images/jc_studio_sitting.jpg"></div>
+          <div class="parallax"><img src="/public/media/johnnyMedia/images/jc_studio_sitting.jpg"></div>
           <div class="quote">
             <div class="row">
               <div class="col s12">
@@ -117,6 +117,7 @@
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="/howler/howler.js"></script>
 
     <script>
       $(function(){
@@ -135,7 +136,8 @@
       });
     </script>
 
-    <script src="/customLibraries/rangeInput/rangeScript.js"></script>
-    <script src="/scripts/musicScripts/audioPlayer.js"></script>
+    <script src="/public/customLibraries/rangeInput/rangeScript.js"></script>
+    <script src="/public/scripts/musicScripts/audioPlayer.js"></script>
+    <!-- <script src="/public/scripts/musicScripts/howlerPlayer.js"></script> -->
 
 <% include ../partials/footer %>
