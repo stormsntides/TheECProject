@@ -186,40 +186,26 @@ function skipTo($audioPlayer, skipTo){
   }
 }
 
-// function initAudio(){
-//   $(".audio-player").each(function(){
-//     let $audio = $(this).find("audio.active");
-//     if(!$audio[0]){
-//       let $first = $(this).find("audio").first();
-//       $first.addClass("active");
-//       initDisplays($(this));
-//     }
-//   });
-// }
-
-function initAudio($audio){
-  if(!$audio.hasClass("active")){
-    let $audioPlayer = $(this).parents(".audio-player");
-
-    if(!$audioPlayer.find("audio.active")[0]){
-      $audio.addClass("active");
-      initDisplays($audioPlayer);
-    }
-  }
+function initAudio(){
+  $(".audio-control.song").each(function(){
+    let $song = $(this);
+    let newsong = new Howl({
+      src: [$song.data("src")]
+    });
+    initDisplays($(this));
+  });
 }
 
-$(function(){
-  var sound = new Howl({
-    src: ['/public/media/music/Blackout.mp3']
-  });
+var playlist = [];
 
-  sound.play();
+$(function(){
+  // var sound = new Howl({
+  //   src: ['/public/media/music/Blackout.mp3']
+  // });
+  //
+  // sound.play();
 
   $('.modal').modal();
-  $("audio").on("canplaythrough", function(e){
-    console.log("Loading audio: " + $(this));
-    initAudio($(this));
-  });
   $("audio").on("timeupdate", function(e){
     if($(this).hasClass("active")){
       updateTime($(this).parents(".audio-player"));

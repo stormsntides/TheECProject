@@ -206,6 +206,11 @@ $(function(){
       updateTime($(this).parents(".audio-player"));
     }
   });
+  $("audio").on("durationchange", function(e){
+    if($(this).hasClass("active")){
+      initDisplays($(this).parents(".audio-player"));
+    }
+  });
   $(".audio-control.select").on("click", function(e){
     e.preventDefault();
     let $audioPlayer = validateActiveAudio($(this));
