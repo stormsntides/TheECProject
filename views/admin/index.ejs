@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ECProject</title>
+    <meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#01579b">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/stylesheets/general-styles.css">
+  </head>
+  <body>
+    <header>
+      <!-- Fixed Navbar with actions for manipulating data -->
+      <div class="navbar-fixed">
+        <nav class="light-blue darken-4">
+          <div class="nav-wrapper container">
+            <a href="/" class="brand-logo left">Admin View</a>
+            <a href="#" data-activates="slide-out" class="button-collapse right"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+              <li><a class="modal-trigger" href="#add-form">Add Post</a></li>
+              <li><a class="dropdown-button" href="#!" data-activates="quick-dropdown">Quick Search<i class="material-icons right">arrow_drop_down</i></a></li>
+              <li><a class="dropdown-button" href="#!" data-activates="recent-dropdown">Recent Searches<i class="material-icons right">arrow_drop_down</i></a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <!-- Dropdowns in the navbar -->
+      <ul id="quick-dropdown" class="dropdown-content quick-search">
+        <li class="right-align"><a href="#!" class="teal-text">all</a></li>
+      </ul>
+      <ul id="recent-dropdown" class="dropdown-content recent-searches"></ul>
+      <!-- When using navbar-fixed, side-nav must be outside of it in order to allow links to be clicked -->
+      <ul id="slide-out" class="side-nav">
+        <li><a class="modal-trigger" href="#add-form">Add Post</a></li>
+        <li class="no-padding">
+          <ul class="collapsible collapsible-accordion">
+            <li>
+              <a class="collapsible-header">Quick Searches<i class="material-icons">arrow_drop_down</i></a>
+              <div class="collapsible-body">
+                <ul class="quick-search">
+                  <li class="right-align"><a href="#!" class="teal-text">all</a></li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <a class="collapsible-header">Recent Searches<i class="material-icons">arrow_drop_down</i></a>
+              <div class="collapsible-body">
+                <ul class="recent-searches"></ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul> <!-- end Nav -->
+    </header>
+    <main>
+      <!-- Unseen menus/forms not located inside of navbar -->
+      <div id="unseen">
+        <!-- Modal Structure add -->
+        <% include ../partials/admin/newModal %>
+        <!-- Modal Structure edit -->
+        <% include ../partials/admin/editModal %>
+        <!-- Modal Structure delete -->
+        <% include ../partials/admin/deleteModal %>
+      </div> <!-- end Unseen menus/forms -->
+      <div class="row">
+        <div class="col s12 m2">
+          <div id="filters"></div>
+        </div>
+        <div class="col s12 m8">
+          <form id="search-form">
+            <div class="input-field">
+              <i class="material-icons prefix grey-text text-darken-3">search</i>
+              <input id="search" type="text" name="search" class="validate center-align grey-text text-darken-3" autocomplete="off">
+              <label for="search">Enter Search</label>
+            </div>
+          </form>
+          <div id='results' class='row'></div>
+          <ul class="pagination"></ul>
+        </div>
+      </div>
+    </main>
+
+    <% include ../partials/copyright %>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="/public/scripts/adminScripts/adminToolScript.js"></script>
+    <script>
+      $(function(){
+        $("textarea[name='blogpost[full]']").keydown(function(e) {
+          if(e.keyCode === 9) { // tab was pressed
+            // get caret position/selection
+            let start = this.selectionStart;
+            let end = this.selectionEnd;
+            let $this = $(this);
+            let value = $this.val();
+            // set textarea value to: text before caret + tab + text after caret
+            $this.val(value.substring(0, start)
+                      + "\t"
+                      + value.substring(end));
+            // put caret at right position again (add one for the tab)
+            this.selectionStart = this.selectionEnd = start + 1;
+            // prevent the focus loss
+            e.preventDefault();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

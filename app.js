@@ -6,8 +6,8 @@ var express = require("express"),
     passport = require("passport"),
     LocalStrategy = require("passport-local"),
     methodOverride = require("method-override"),
-    User = require("./models/user"),
-    userSeed = require("./local-files/seeds/userSeeds"); // remove in production
+    User = require("./models/user");
+    // userSeed = require("./local-files/seeds/userSeeds"); // remove in production
     // blogSeed = require("./local-files/seeds/blogSeeds"), // remove in production
     // productSeed = require("./local-files/seeds/productSeeds"); // remove in production
 
@@ -28,7 +28,7 @@ app.use("/public", express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.use(flash()); //NEW LINE OF CODE 3/28/2018
 
-userSeed(); // remove in production
+// userSeed(); // remove in production
 // blogSeed(); // remove in production
 // productSeed(); // remove in production
 

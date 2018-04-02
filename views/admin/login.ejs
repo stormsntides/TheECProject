@@ -3,12 +3,12 @@
 <% include ../partials/headerClose %>
 <% include ../partials/navbar-main %>
 
-<div class="container">
+<main class="container">
   <header class="container">
     <h1 class="grey-text text-darken-3"><i class="medium material-icons">account_circle</i> Admin Portal</h1>
   </header>
 
-  <main class="container">
+  <div class="container">
     <div class="row">
       <form class="col s12" action="/admin/login" method="POST">
         <div class="row">
@@ -26,10 +26,9 @@
         <button class="btn waves-effect waves-light hoverable" type="submit" name="action">Login</button>
       </form>
     </div>
-  </main>
-</div>
+  </div>
+</main>
 
-<% include ../partials/copyright %>
 <% include ../partials/jquery %>
 <% include ../partials/flash %>
 <% include ../partials/footer %>

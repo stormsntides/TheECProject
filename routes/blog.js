@@ -26,34 +26,54 @@ router.get("/new", function(req, res){
 
 // CREATE
 router.post("/", function(req, res){
-  // console.log(req.body);
-    if(req.body.blogpost.other === blog_key){
-        console.log("Correct passcode.");
-        let newPost = {
-            title: req.body.blogpost.title,
-            content: {
-              summary: req.body.blogpost.summary,
-              full: req.body.blogpost.full
-            },
-            date: new Date(),
-            order: req.body.blogpost.order
-        };
+  let newPost = {
+    title: req.body.blogpost.title,
+    content: {
+      summary: req.body.blogpost.summary,
+      full: req.body.blogpost.full
+    },
+    date: new Date(),
+    order: req.body.blogpost.order
+  };
 
-        console.log("New Blogpost received!");
-        console.log(newPost);
+  console.log("New Blogpost received!");
+  console.log(newPost);
 
-        Blogpost.create(newPost, function(err){
-            if(err){
-                console.log(err);
-                res.json({message: err, status: "fail", type: "error"});
-            } else {
-                res.json({message: "Received post!", status: "success", type: "new"});
-            }
-        });
+  Blogpost.create(newPost, function(err){
+    if(err){
+      console.log(err);
+      res.json({message: err, status: "fail", type: "error"});
     } else {
-        console.log("Incorrect passcode received. Refusing post.");
-        res.json({message: "ERROR! Something went wrong.", status: "fail", type: "error"});
+      res.json({message: "Received post!", status: "success", type: "new"});
     }
+  });
+    // if(req.body.blogpost.other === blog_key){
+    //     console.log("Correct passcode.");
+    //     let newPost = {
+    //         title: req.body.blogpost.title,
+    //         content: {
+    //           summary: req.body.blogpost.summary,
+    //           full: req.body.blogpost.full
+    //         },
+    //         date: new Date(),
+    //         order: req.body.blogpost.order
+    //     };
+    //
+    //     console.log("New Blogpost received!");
+    //     console.log(newPost);
+    //
+    //     Blogpost.create(newPost, function(err){
+    //         if(err){
+    //             console.log(err);
+    //             res.json({message: err, status: "fail", type: "error"});
+    //         } else {
+    //             res.json({message: "Received post!", status: "success", type: "new"});
+    //         }
+    //     });
+    // } else {
+    //     console.log("Incorrect passcode received. Refusing post.");
+    //     res.json({message: "ERROR! Something went wrong.", status: "fail", type: "error"});
+    // }
 });
 
 // SHOW
@@ -80,32 +100,52 @@ router.get("/:id/edit", function(req, res){
 
 // UPDATE
 router.put("/:id", function(req, res){
-  if(req.body.blogpost.other === blog_key){
-    console.log("Correct passcode.");
-    let editedPost = {
-        title: req.body.blogpost.title,
-        content: {
-          summary: req.body.blogpost.summary,
-          full: req.body.blogpost.full
-        },
-        order: req.body.blogpost.order
-    };
+  let editedPost = {
+    title: req.body.blogpost.title,
+    content: {
+      summary: req.body.blogpost.summary,
+      full: req.body.blogpost.full
+    },
+    order: req.body.blogpost.order
+  };
 
-    console.log("Edited Blogpost received!");
-    console.log(editedPost);
+  console.log("Edited Blogpost received!");
+  console.log(editedPost);
 
-    Blogpost.findByIdAndUpdate(req.params.id, editedPost, function(err, updatedBlogpost){
-        if(err){
-            console.log(err);
-            res.json({message: err, status: "fail", type: "error"});
-        } else {
-            res.json({message: "Updated post \"" + updatedBlogpost.title + "\"!", status: "success", type: "update"});
-        }
-    });
-  } else {
-      console.log("Incorrect passcode received. Refusing post.");
-      res.json({message: "ERROR! Something went wrong.", status: "fail", type: "error"});
-  }
+  Blogpost.findByIdAndUpdate(req.params.id, editedPost, function(err, updatedBlogpost){
+    if(err){
+      console.log(err);
+      res.json({message: err, status: "fail", type: "error"});
+    } else {
+      res.json({message: "Updated post \"" + updatedBlogpost.title + "\"!", status: "success", type: "update"});
+    }
+  });
+  // if(req.body.blogpost.other === blog_key){
+  //   console.log("Correct passcode.");
+  //   let editedPost = {
+  //       title: req.body.blogpost.title,
+  //       content: {
+  //         summary: req.body.blogpost.summary,
+  //         full: req.body.blogpost.full
+  //       },
+  //       order: req.body.blogpost.order
+  //   };
+  //
+  //   console.log("Edited Blogpost received!");
+  //   console.log(editedPost);
+  //
+  //   Blogpost.findByIdAndUpdate(req.params.id, editedPost, function(err, updatedBlogpost){
+  //       if(err){
+  //           console.log(err);
+  //           res.json({message: err, status: "fail", type: "error"});
+  //       } else {
+  //           res.json({message: "Updated post \"" + updatedBlogpost.title + "\"!", status: "success", type: "update"});
+  //       }
+  //   });
+  // } else {
+  //     console.log("Incorrect passcode received. Refusing post.");
+  //     res.json({message: "ERROR! Something went wrong.", status: "fail", type: "error"});
+  // }
 });
 
 // DESTROY
