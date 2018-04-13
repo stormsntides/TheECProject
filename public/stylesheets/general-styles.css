@@ -14,3 +14,7 @@ main {
 .pre-wrap {
 	white-space: pre-wrap;
 }
+
+.margin-left {
+	margin-left: auto;
+}

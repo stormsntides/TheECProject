@@ -1,5 +1,8 @@
 var express = require("express"),
   router = express.Router(),
+  jcMiddleware = require("../demos/johnny/middleware/johnnyLogin"),
+  passport = require("passport"),
+  JCMessage = require("../demos/johnny/models/johnnyMessage"),
   Product = require("../models/product");
 
 // CODE ROUTES
@@ -9,7 +12,62 @@ router.get("/code/", function(req, res){
 
 // JOHNNY ROUTES
 router.get("/johnny/", function(req, res){
-    res.render("johnny/index");
+    res.render("demos/johnny/index");
+});
+
+router.get("/johnny/login", function(req, res){
+    res.render("demos/johnny/login");
+});
+
+router.post("/johnny/login", passport.authenticate("local",
+    {
+        successRedirect: "/demo/johnny/inbox",
+        failureRedirect: "/demo/johnny/login"
+    }), function(req, res){}
+);
+
+router.get("/johnny/logout", function(req, res){
+    req.logout();
+    req.flash("success", "You are now logged out!");
+    res.redirect("/demo/johnny");
+});
+
+router.get("/johnny/inbox", jcMiddleware.isLoggedIn, function(req, res){
+  JCMessage.find({}, function(err, allMessages){
+      if(err){
+          console.log(err);
+      } else {
+          res.render("demos/johnny/inbox", {messages: allMessages.sort(function(a, b){
+              return a.date - b.date;
+          })});
+      }
+  });
+});
+
+router.post("/johnny/inbox", function(req, res){
+  let message = req.body.message;
+  message.date = new Date();
+  JCMessage.create(message, function(err){
+    if(err){
+      console.log(err);
+      req.flash("error", "There was an error sending this message.");
+    } else {
+      req.flash("success", "Message \"" + message.subject + "\" sent!");
+    }
+    res.redirect("/demo/johnny");
+  });
+});
+
+router.delete("/johnny/inbox/:id", jcMiddleware.isLoggedIn, function(req, res) {
+  JCMessage.findByIdAndRemove(req.params.id, function(err){
+    if(err){
+      console.log(err);
+      req.flash("error", "An error occurred. Please review server error logs.");
+    } else {
+      req.flash("success", "Message deleted and removed from inbox.");
+    }
+    res.redirect("/demo/johnny/inbox");
+  });
 });
 
 // PRODUCT SEARCH ROUTES

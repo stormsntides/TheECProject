@@ -1,6 +1,6 @@
 var express = require("express"),
     router = express.Router(),
-    middleware = require("../middleware/index"),
+    middleware = require("../middleware/login"),
     Blogpost = require("../models/blogpost"),
     passport = require("passport"),
     User = require("../models/user");
@@ -23,13 +23,13 @@ router.get("/logout", function(req, res){
 });
 
 // ADMIN BLOG VIEW ROUTES
-// INDEX , middleware.isLoggedIn
-router.get("/", function(req, res) {
+// INDEX
+router.get("/", middleware.isLoggedIn, function(req, res) {
   res.render("admin/index");
 });
 
 // SHOW
-router.get("/blog/:id", function(req, res){
+router.get("/blog/:id", middleware.isLoggedIn, function(req, res){
   console.log("ID: " + req.params.id);
   console.log("Search: " + req.query.search);
   if(req.params.id !== "none"){
@@ -73,43 +73,44 @@ router.get("/blog/:id", function(req, res){
 });
 
 // CREATE
-router.post("/blog/", function(req, res) {
+router.post("/blog/", middleware.isLoggedIn, function(req, res) {
   // expect form data from AJAX POST request and format it properly for the database
-  let newBlogpost = formatBlogpost(req.body.blogpost);
-  Blogpost.create(newBlogpost, function(err) {
-    if (err) {
+  let newBlogpost = formatBlogpost(req.body.blogpost, true);
+  Blogpost.create(newBlogpost, function(err){
+    if(err){
       console.log(err);
-      res.json({message: err});
+      res.json({message: err, status: "fail", type: "error"});
     } else {
-      console.log("Success! \"" + newBlogpost.code + "\" was created!");
-      res.json({message: "Success! \"" + newBlogpost.code + "\" was created!"});
+      res.json({message: "Received post!", status: "success", type: "new"});
     }
   });
 });
 
 // UPDATE
-router.put("/blog/:id", function(req, res) {
-  let updatedBlogpost = formatBlogpost(req.body.blogpost);
-  Blogpost.findByIdAndUpdate(req.params.id, updatedBlogpost, function(err, oldBlogpost) {
-    if (err) {
+router.put("/blog/:id", middleware.isLoggedIn, function(req, res) {
+  let updatedBlogpost = formatBlogpost(req.body.blogpost, false);
+  Blogpost.findByIdAndUpdate(req.params.id, updatedBlogpost, function(err, oldBlogpost){
+    if(err){
       console.log(err);
+      res.json({message: err, status: "fail", type: "error"});
     } else {
-      console.log("Success! \"" + updatedBlogpost.code + "\" (fka: \"" + oldBlogpost.code + "\") was updated!");
+      res.json({message: "Updated post \"" + oldBlogpost.title + "\"!", status: "success", type: "update"});
     }
   });
-  res.json(null);
 });
 
 // DESTROY
-router.delete("/blog/:id", function(req, res) {
+router.delete("/blog/:id", middleware.isLoggedIn, function(req, res) {
+  console.log("Received delete request.");
   console.log("Request Body ID: " + req.params.id);
-  Blogpost.findByIdAndRemove(req.params.id, function(err) {
-    if (err) {
+
+  Blogpost.findByIdAndRemove(req.params.id, function(err){
+    if(err){
       console.log(err);
+      res.json({message: err, status: "fail", type: "error"});
     } else {
-      console.log("Warning! Blogpost deleted!");
+      res.json({message: "Deleted post.", status: "success", type: "delete"});
     }
-    res.json(null);
   });
 });
 
@@ -117,19 +118,22 @@ function escapeRegExp(string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
 }
 
-function formatBlogpost(blogObj) {
+function formatBlogpost(blogObj, isNewPost) {
   let fBlog = {
     title: blogObj.title,
     content: {
       summary: blogObj.summary,
       full: blogObj.full
     },
-    date: new Date(),
-    order: blogObj.order,
-    tags: ["all", blogObj.title.replace(" ", "_"), blogObj.order]
+    order: blogObj.order
+    // tags: ["all", blogObj.title.replace(" ", "_"), blogObj.order]
   };
+  if(isNewPost){
+    fBlog.date = new Date();
+  }
   // tags with spaces will have them replaced with underscores
   // required tags are hardcoded above, all other user tags will be appended below
+  /*
   blogObj.tags.split(",").forEach(function(tag){
     let trimmedTag = tag.trim().replace(" ", "_");
     // for when the user updates a product, make sure no tags are being added doubly
@@ -137,6 +141,7 @@ function formatBlogpost(blogObj) {
       fBlog.tags.push(trimmedTag);
     }
   });
+  */
   return fBlog;
 }
 

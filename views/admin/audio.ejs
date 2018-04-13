@@ -2,19 +2,14 @@
 
 <% include ../partials/headerClose %>
 <% include ../partials/admin/navbar-admin %>
-
     <main>
       <!-- Unseen menus/forms not located inside of navbar -->
       <div id="unseen">
         <!-- Modal Structure add -->
-        <% include ../partials/admin/newBlogpostModal %>
         <% include ../partials/admin/newAudioModal %>
         <!-- Modal Structure edit -->
-        <% include ../partials/admin/editBlogpostModal %>
         <% include ../partials/admin/editAudioModal %>
         <!-- Modal Structure delete -->
-        <% include ../partials/admin/deleteBlogpostModal %>
-        <% include ../partials/admin/deleteMessageModal %>
         <% include ../partials/admin/deleteAudioModal %>
       </div> <!-- end Unseen menus/forms -->
       <div class="row">
@@ -40,7 +35,6 @@
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-    <script src="/public/scripts/adminScripts/adminToolScript.js"></script>
-    <script src="/public/scripts/adminScripts/blogToolScript.js"></script>
+    <script src="/public/scripts/adminScripts/audioToolScript.js"></script>
   </body>
 </html>

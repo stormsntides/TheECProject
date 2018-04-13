@@ -1,0 +1,20 @@
+<% if(flashError && flashError.length > 0) { %>
+  <script>
+    var $toastContent = $('<i class="material-icons">warning</i><p><%= flashError %></p>');
+    Materialize.toast($toastContent, 4000, "red accent-4");
+  </script>
+<% } %>
+
+<% if(flashSuccess && flashSuccess.length > 0) { %>
+  <script>
+    var $toastContent = $('<i class="material-icons">done</i><p><%= flashSuccess %></p>');
+    Materialize.toast($toastContent, 4000, "green accent-4");
+  </script>
+<% } %>
+
+<% if(flashWarning && flashWarning.length > 0) { %>
+  <script>
+    var $toastContent = $('<i class="material-icons">info</i><p><%= flashWarning %></p>');
+    Materialize.toast($toastContent, 4000, "orange accent-4");
+  </script>
+<% } %>
