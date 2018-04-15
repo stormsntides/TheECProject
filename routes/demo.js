@@ -3,12 +3,7 @@ var express = require("express"),
   jcMiddleware = require("../demos/johnny/middleware/johnnyLogin"),
   passport = require("passport"),
   JCMessage = require("../demos/johnny/models/johnnyMessage"),
-  Product = require("../models/product");
-
-// CODE ROUTES
-router.get("/code/", function(req, res){
-    res.render("code/index");
-});
+  Product = require("../demos/productSearch/models/product");
 
 // JOHNNY ROUTES
 router.get("/johnny/", function(req, res){
@@ -73,7 +68,7 @@ router.delete("/johnny/inbox/:id", jcMiddleware.isLoggedIn, function(req, res) {
 // PRODUCT SEARCH ROUTES
 // INDEX
 router.get("/product/", function(req, res) {
-  res.render("productSearch/index");
+  res.render("demos/productSearch/index");
 });
 
 // SHOW
