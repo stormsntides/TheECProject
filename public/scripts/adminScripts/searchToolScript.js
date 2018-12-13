@@ -1,3 +1,11 @@
+const searchOptions = {
+  contextUrl: {
+    blogposts: "/admin/blog",
+    messages: "/admin/inbox",
+    audio: "/admin/audio"
+  }
+};
+
 const searchResults = {
   data: {},
   displayHtml: ""
@@ -87,7 +95,7 @@ function loadResults(searchTerm, url, page=1, size=20){
   // send the "none" value as the id to the server; it will be recognized as a search query instead
   $.getJSON(url + "/none?search=" + term + "&page=" + page + "&pagesize=" + size, function(data){
     searchResults.data = data.results;
-    searchResults.displayHtml = "<h3 class='grey-text text-darken-3'>Displaying " + data.results.length + " result" + (data.results.length === 1 ? " " + "s ") + "of " + data.count + " found for \"" + term + "\"</h3>";
+    searchResults.displayHtml = "<h3 class='grey-text text-darken-3'>Displaying " + data.results.length + " result" + (data.results.length === 1 ? " " : "s ") + "of " + data.count + " found for \"" + term + "\"</h3>";
 
     if(data.count > size){
       updatePagination(data.pages.currentPage, data.pages.lastPage);
@@ -97,9 +105,9 @@ function loadResults(searchTerm, url, page=1, size=20){
   });
 };
 
-function search(term, url) {
+function search(term) {
   updateRecentSearches(term);
-  loadResults(term, url);
+  loadResults(term, searchOptions.contextUrl["blogposts"]);
 }
 
 $(function() {
@@ -152,5 +160,6 @@ $(function() {
   });
 
   // go ahead and populate page with all entries
-  loadResults("all");
+  // loadResults("all");
+  loadResults("all", searchOptions.contextUrl["blogposts"]);
 });

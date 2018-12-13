@@ -1,7 +1,12 @@
 <% include ../partials/headerOpen %>
 
 <% include ../partials/headerClose %>
-<% include ../partials/navbar-main %>
+
+<% if(isAdmin) { %>
+  <% include ../partials/admin/navbars/adminBlogNavbar %>
+<% } else { %>
+  <% include ../partials/navbar-main %>
+<% } %>
 
 <main>
   <div class="row">

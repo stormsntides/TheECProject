@@ -1,3 +1,5 @@
+var context = "blogposts";
+
 function updateEditForm(blogpostID){
   // need to retrieve the product from the database and input each value into the edit form
   $.getJSON("/admin/blog/" + blogpostID, function(data){
@@ -42,9 +44,6 @@ function formatFoundBlogposts(foundBlogposts) {
 function createPagination(productCount, currentPage, maxPage){
   let $pages = $(".pagination");
   $pages.empty();
-
-  // let maxPage = Math.ceil(productCount / pageSize);
-  // let curPage = (currentPage <= 0 ? maxPage : (currentPage > maxPage ? 1 : currentPage));
 
   console.log("CurrentPage: " + currentPage + ", MaxPage: " + maxPage);
   // console.log("MaxPage: " + maxPage + ", CurPage: " + curPage);
@@ -179,6 +178,10 @@ $(function() {
   const $pages = $(".pagination");
   const $deleteBtn = $("#delete-blogpost-btn");
 
+  $results.on("click", function(e){
+    console.log(searchResults);
+  });
+
   $addForm.on("submit", function(e) {
     e.preventDefault();
     $.ajax({
@@ -275,5 +278,5 @@ $(function() {
   });
 
   // go ahead and populate page with all entries
-  loadResults("all");
+  // loadResults("all");
 });

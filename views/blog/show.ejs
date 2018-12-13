@@ -1,7 +1,12 @@
 <% include ../partials/headerOpen %>
 
 <% include ../partials/headerClose %>
-<% include ../partials/navbar-main %>
+
+<% if(isAdmin) { %>
+  <% include ../partials/admin/navbars/adminBlogNavbar %>
+<% } else { %>
+  <% include ../partials/navbar-main %>
+<% } %>
 
 <main>
   <div class="row">
@@ -24,9 +29,12 @@
       <div class="hide-on-large-only">
         <a class="btn-flat blue-text waves-effect" href="/blog"><span class="valign-wrapper flow-text"><i class="material-icons">chevron_left</i> Back</span></a>
       </div>
+      <a class="btn-flat blue-text waves-effect" href="/blog/<%= blogpost._id %>/edit"><span class="valign-wrapper flow-text"><i class="material-icons">edit</i> Edit</span></a>
     </div>
   </div>
 </main>
+
+<% include ../partials/admin/blog/deleteModal %>
 
 <% include ../partials/copyright %>
 <% include ../partials/jquery %>

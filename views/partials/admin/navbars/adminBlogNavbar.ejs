@@ -1,0 +1,67 @@
+<header>
+  <!-- Fixed Navbar with actions for manipulating data -->
+  <div class="navbar-fixed">
+    <nav class="deep-orange darken-2">
+      <div class="nav-wrapper container">
+        <a href="/" class="brand-logo left"><span class="hide-on-small-only">The Ernest Cates Project</span><span class="hide-on-med-and-up">The ECProject</span></a>
+        <a href="#" data-activates="slide-out" class="button-collapse right"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="/blog">Blogs</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a class="dropdown-button" href="#!" data-activates="demo-dropdown">Demos<i class="material-icons right">arrow_drop_down</i></a></li>
+          <li><a class="dropdown-button" href="#!" data-activates="admin-dropdown">Admin Tools<i class="material-icons right">arrow_drop_down</i></a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <!-- Dropdowns in the navbar -->
+  <ul id="demo-dropdown" class="dropdown-content">
+    <li class="right-align"><a href="/demo/johnny">Johnny</a></li>
+    <li class="right-align"><a href="/demo/product">Product</a></li>
+  </ul>
+  <ul id="admin-dropdown" class="dropdown-content">
+    <li class="right-align">Blog Tools</li>
+    <li class="divider"></li>
+    <li class="right-align"><a href="/blog/new">New Post</a></li>
+    <% if(isSinglePost){ %>
+      <li class="right-align"><a href="/blog/<%= blogpost._id %>/edit">Edit</a></li>
+      <li class="right-align"><a href='#delete-<%= blogpost._id %>-form' class='modal-trigger btn-flat red-text waves-effect waves-red'>Delete</a></li>
+    <% } %>
+  </ul>
+  <!-- When using navbar-fixed, side-nav must be outside of it in order to allow links to be clicked -->
+  <ul id="slide-out" class="side-nav">
+    <li><a href="/blog">Blogs</a></li>
+    <li><a href="/about">About</a></li>
+    <li class="no-padding">
+      <ul class="collapsible collapsible-accordion">
+        <li>
+          <a class="collapsible-header">Demos<i class="material-icons">arrow_drop_down</i></a>
+          <div class="collapsible-body">
+            <ul>
+              <li class="right-align"><a class="teal-text" href="/demo/johnny">Johnny</a></li>
+              <li class="right-align"><a class="teal-text" href="/demo/product">Product</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li class="no-padding">
+      <ul class="collapsible collapsible-accordion">
+        <li>
+          <a class="collapsible-header">Admin Tools<i class="material-icons">arrow_drop_down</i></a>
+          <div class="collapsible-body">
+            <ul>
+              <li class="right-align">Blog Tools</li>
+              <li class="divider"></li>
+              <li class="right-align"><a href="/blog/new">New Post</a></li>
+              <% if(isSinglePost){ %>
+                <li class="right-align"><a href="/blog/<%= blogpost._id %>/edit">Edit</a></li>
+                <li class="right-align"><a href='#delete-<%= blogpost._id %>-form' class='modal-trigger btn-flat red-text waves-effect waves-red'>Delete</a></li>
+              <% } %>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul> <!-- end Nav -->
+</header>
