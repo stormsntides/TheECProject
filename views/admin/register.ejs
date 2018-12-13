@@ -1,0 +1,34 @@
+<% include ../partials/headerOpen %>
+
+<% include ../partials/headerClose %>
+<% include ../partials/navbar-main %>
+
+<main class="container">
+  <header class="container">
+    <h1 class="grey-text text-darken-3"><i class="medium material-icons">account_circle</i> Admin Portal</h1>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <form class="col s12" action="/admin/register" method="POST">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="username" class="validate" type="text" name="username" placeholder="username">
+            <label for="username">Username</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password" class="validate" type="password" name="password" placeholder="password">
+            <label for="password">Password</label>
+          </div>
+        </div>
+        <button class="btn waves-effect waves-light hoverable" type="submit" name="action">Create</button>
+      </form>
+    </div>
+  </div>
+</main>
+
+<% include ../partials/jquery %>
+<% include ../partials/flash %>
+<% include ../partials/footer %>

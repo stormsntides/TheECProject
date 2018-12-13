@@ -2,34 +2,75 @@ var express = require("express"),
     router = express.Router(),
     middleware = require("../middleware/login"),
     Blogpost = require("../models/blogpost"),
+    Song = require("../models/song"),
+    Message = require("../models/message"),
     passport = require("passport"),
     User = require("../models/user");
 
+// INDEX
+router.get("/", middleware.isLoggedIn, middleware.isAdmin, async function(req, res) {
+  res.redirect("/admin/inbox");
+});
+
 router.get("/login", function(req, res){
-    res.render("admin/login");
+  res.render("admin/login");
 });
 
 router.post("/login", passport.authenticate("local",
-    {
-        successRedirect: "/admin",
-        failureRedirect: "/admin/login"
-    }), function(req, res){}
+  {
+    successRedirect: "/admin",
+    successFlash: "Welcome! You are now logged in.",
+    failureRedirect: "/admin/login",
+    failureFlash: true
+  }), function(req, res){}
 );
 
-router.get("/logout", function(req, res){
-    req.logout();
-    req.flash("success", "You are now logged out!");
-    res.redirect("/");
+router.get("/info", function(req, res){
+  res.render("admin/newUserInfo");
 });
+
+router.get("/logout", function(req, res){
+  req.logout();
+  req.flash("success", "You are now logged out!");
+  res.redirect("/");
+});
+
+router.get('/register', function(req, res){
+  res.render('admin/register');
+});
+
+router.post('/register', function(req, res){
+  User.register(new User({username: req.body.username, adminKey: "0"}), req.body.password, function(err, user){
+    if(err){
+      req.flash("error", "User " + user.username + " already exists!");
+      res.redirect('/admin/register');
+    }
+
+    passport.authenticate('local')(req, res, function (){
+      req.flash("success", "New user " + user.username + " created!");
+      res.redirect('/');
+    });
+  });
+});
+
+router.get("/stats", async function(req, res){
+  let counts = {
+    blogs: await Blogpost.estimatedDocumentCount().exec(),
+    songs: await Song.estimatedDocumentCount().exec(),
+    mesages: await Message.estimatedDocumentCount().exec()
+  };
+  res.json({
+    message: "DB contains the following document counts.",
+    data: counts
+  });
+});
+
+// ADMIN MESSAGE VIEW ROUTES
+
 
 // ADMIN BLOG VIEW ROUTES
-// INDEX
-router.get("/", middleware.isLoggedIn, function(req, res) {
-  res.render("admin/index");
-});
-
 // SHOW
-router.get("/blog/:id", middleware.isLoggedIn, function(req, res){
+router.get("/blog/:id", middleware.isLoggedIn, middleware.isAdmin, function(req, res){
   console.log("ID: " + req.params.id);
   console.log("Search: " + req.query.search);
   if(req.params.id !== "none"){
@@ -73,7 +114,7 @@ router.get("/blog/:id", middleware.isLoggedIn, function(req, res){
 });
 
 // CREATE
-router.post("/blog/", middleware.isLoggedIn, function(req, res) {
+router.post("/blog/", middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
   // expect form data from AJAX POST request and format it properly for the database
   let newBlogpost = formatBlogpost(req.body.blogpost, true);
   Blogpost.create(newBlogpost, function(err){
@@ -87,7 +128,7 @@ router.post("/blog/", middleware.isLoggedIn, function(req, res) {
 });
 
 // UPDATE
-router.put("/blog/:id", middleware.isLoggedIn, function(req, res) {
+router.put("/blog/:id", middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
   let updatedBlogpost = formatBlogpost(req.body.blogpost, false);
   Blogpost.findByIdAndUpdate(req.params.id, updatedBlogpost, function(err, oldBlogpost){
     if(err){
@@ -100,7 +141,7 @@ router.put("/blog/:id", middleware.isLoggedIn, function(req, res) {
 });
 
 // DESTROY
-router.delete("/blog/:id", middleware.isLoggedIn, function(req, res) {
+router.delete("/blog/:id", middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
   console.log("Received delete request.");
   console.log("Request Body ID: " + req.params.id);
 

@@ -1,0 +1,46 @@
+<% include ../../partials/admin/adminHeaderOpen %>
+
+<% include ../../partials/headerClose %>
+<% include ../../partials/admin/navbar-admin %>
+
+    <main>
+      <div class="row">
+        <div class="col s12 m2"></div>
+        <div class="col s12 m8">
+          <div id='messages' class='row'>
+            <div class='collection'>
+              <% messages.forEach(function(message){ %>
+                <a href='/admin/inbox/<%= message._id %>' class="collection-item">
+                  <span class="truncate"><%= message.author %>: "<%= message.subject %>" -- <em class="grey-text lighten-2"><%= message.message %></em>
+                    <span class="secondary-content">
+                      <% var options = {timeZone: "America/New_York", weekday: "short", month: "short", day: "numeric", year: "numeric"} %>
+                      <strong><%= message.date.toLocaleString("en-US", options) %></strong>
+                    </span>
+                  </span>
+                </a>
+              <% }); %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <% include ../../partials/jquery %>
+    <% include ../../partials/flash %>
+    <% include ../../partials/copyright %>
+
+    <script>
+      $(function(){
+        $(".button-collapse").sideNav({
+          menuWidth: 240,
+          edge: "right",
+          closeOnClick: true,
+          draggable: true
+        });
+        $(".dropdown-button").dropdown();
+        $('.modal').modal();
+      });
+    </script>
+
+  <body>
+<html>

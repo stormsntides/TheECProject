@@ -1,0 +1,109 @@
+<% include ../partials/headerOpen %>
+
+<% include ../partials/headerClose %>
+<% include ../partials/navbar-main %>
+
+<main>
+  <div class="container">
+    <div class="row">
+      <form id="post-form" class="col s12" action="/blog/" method="POST">
+        <div class="row">
+          <div class="input-field col s12 m10">
+            <input id="title" name="blogpost[title]" type="text" class="validate" required>
+            <label for="title">Blog Title</label>
+          </div>
+          <div class="input-field col s12 m2">
+            <input id="order" name="blogpost[order]" type="number" min="0">
+            <label for="order">Order</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="summary" name="blogpost[summary]" class="materialize-textarea" data-length="140" maxlength="140"></textarea>
+            <label for="summary">Summary</label>
+          </div>
+          <div class="input-field col s12">
+            <textarea id="full" name="blogpost[full]" class="materialize-textarea"></textarea>
+            <label for="full">Blog Content</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="other" name="blogpost[other]" type="text" class="validate" value="testkey123" required>
+            <label for="other">Other</label>
+          </div>
+        </div>
+        <a id="send-to" class="btn waves-effect waves-light yellow darken-3" href="#!">To Local</a>
+        <button class="btn waves-effect waves-light" type="submit">Create</button>
+      </form>
+    </div>
+  </div>
+</main>
+
+<% include ../partials/copyright %>
+<% include ../partials/jquery %>
+
+<script>
+  $(function(){
+    let $postForm = $("#post-form");
+    let $sendTo = $("#send-to");
+    let $otherInput = $("#other");
+
+    $postForm.on("submit", function(e){
+      e.preventDefault();
+      let $this = $(this);
+      $.ajax({
+        url: $this.attr("action"),
+        method: $this.attr("method"),
+        data: $this.serializeArray(),
+        dataType: "json",
+        success: function(data){
+          if(data.status === "success"){
+            Materialize.toast(data.message, 2000, 'green darken-3', function(){
+              if($sendTo.text() === "To Heroku"){
+                window.location.replace("http://ecproject.herokuapp.com/blog/");
+              } else if($sendTo.text() === "To Local"){
+                window.location.replace("/blog/");
+              }
+            });
+          } else if(data.status === "fail"){
+            Materialize.toast(data.message, 2000, 'red darken-3');
+          }
+        }
+      });
+    });
+
+    $sendTo.on("click", function(e){
+      e.preventDefault();
+      if($sendTo.text() === "To Heroku"){
+        $sendTo.text("To Local");
+        $postForm.attr("action", "/blog/");
+        $otherInput.val("testkey123");
+      } else if($sendTo.text() === "To Local"){
+        $sendTo.text("To Heroku");
+        $postForm.attr("action", "http://ecproject.herokuapp.com/blog/");
+        $otherInput.val("3800#1208*");
+      }
+    });
+  });
+
+  $("#full").keydown(function(e) {
+      if(e.keyCode === 9) { // tab was pressed
+          // get caret position/selection
+          let start = this.selectionStart;
+          let end = this.selectionEnd;
+          let $this = $(this);
+          let value = $this.val();
+          // set textarea value to: text before caret + tab + text after caret
+          $this.val(value.substring(0, start)
+                      + "\t"
+                      + value.substring(end));
+          // put caret at right position again (add one for the tab)
+          this.selectionStart = this.selectionEnd = start + 1;
+          // prevent the focus loss
+          e.preventDefault();
+      }
+  });
+</script>
+
+<% include ../partials/footer %>

@@ -15,12 +15,14 @@ var indexRoutes = require("./routes/index"),
     blogRoutes = require("./routes/blog"),
     aboutRoutes = require("./routes/about"),
     demoRoutes = require("./routes/demo"),
-    adminRoutes = require("./routes/admin");
+    adminRoutes = require("./routes/admin"),
+    audioRoutes = require("./routes/audio"),
+    messageRoutes = require("./routes/message");
 
 var PORT = process.env.PORT || "8081",
     DATABASEURL = process.env.DATABASEURL || "mongodb://testdata_admin:TheECProject_Data@ds155288.mlab.com:55288/ec_testdata";
 
-mongoose.connect(DATABASEURL);
+mongoose.connect(DATABASEURL, {useNewUrlParser: true});
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -61,6 +63,8 @@ app.use("/blog", blogRoutes);
 app.use("/about", aboutRoutes);
 app.use("/demo", demoRoutes);
 app.use("/admin", adminRoutes);
+app.use("/admin/audio", audioRoutes);
+app.use("/admin/inbox", messageRoutes);
 
 app.listen(PORT, process.env.IP, function(){
     console.log("ECP server is running!");
