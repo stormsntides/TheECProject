@@ -18,7 +18,7 @@ router.get("/", function(req, res){
       // render page with isAdmin data and all blogposts sorted
       res.render("blog/index", {
         isAdmin: isAdmin,
-        isSinglePost: false,
+        allowManagePost: false,
         blogposts: allBlogposts.sort(function(a, b){
           return a.order - b.order;
         })
@@ -29,7 +29,13 @@ router.get("/", function(req, res){
 
 // NEW
 router.get("/new", middleware.isLoggedIn, middleware.isAdmin, function(req, res){
-  res.render("blog/new");
+  // check to see if there is a user logged in, then check to see if admin
+  let isAdmin = req.user ? middleware.verifyUserAdminKey(req.user.adminKey) : false;
+  // render page with isAdmin data
+  res.render("blog/new", {
+    isAdmin: isAdmin,
+    allowManagePost: false
+  });
 });
 
 // CREATE
@@ -71,7 +77,7 @@ router.get("/:id", function(req, res){
       // render page with isAdmin data and found blogpost
       res.render("blog/show", {
         isAdmin: isAdmin,
-        isSinglePost: true,
+        allowManagePost: true,
         blogpost: foundBlogpost
       });
     }
@@ -86,7 +92,14 @@ router.get("/:id/edit", middleware.isLoggedIn, middleware.isAdmin, function(req,
       req.flash("error", "Unable to retrieve blog post. See server logs for details.");
       res.redirect("/blog");
     } else {
-      res.render("blog/edit", {blogpost: foundBlogpost});
+      // check to see if there is a user logged in, then check to see if admin
+      let isAdmin = req.user ? middleware.verifyUserAdminKey(req.user.adminKey) : false;
+      // render page with isAdmin data and found blogpost
+      res.render("blog/edit", {
+        isAdmin: isAdmin,
+        allowManagePost: false,
+        blogpost: foundBlogpost
+      });
     }
   });
 });
@@ -128,7 +141,7 @@ router.delete("/:id", middleware.isLoggedIn, middleware.isAdmin, function(req, r
       req.flash("error", "Unable to delete blog post. See server logs for details.");
     } else {
       // res.json({message: "Deleted post.", status: "success", type: "delete"});
-      req.flash("sucess", "Deleted post!");
+      req.flash("success", "Deleted post!");
     }
     res.redirect("/blog");
   });

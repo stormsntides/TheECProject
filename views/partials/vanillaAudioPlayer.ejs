@@ -1,10 +1,10 @@
 <div class="audio-player">
   <div class="card see-through">
     <div class="card-content">
-      <span class="card-title grey-text text-lighten-3">
+      <span class="card-title">
         <span class="audio-label" name="title">Loading...</span>
       </span>
-      <div class="grey-text text-lighten-3">
+      <div>
         <p><em><span class="audio-label" name="album">(Album)</span> - <span class="audio-label" name="artist">(Artist)</span></em></p>
         <p><em><span class="audio-label" name="producer">(Producer)</span></em></p>
       </div>
@@ -17,7 +17,7 @@
         <a class="audio-control blue-text" name="pause" style="display: none"><i class="small material-icons">pause</i></a>
         <a class="audio-control blue-text" name="replay" style="display: none"><i class="small material-icons">refresh</i></a>
         <a class="audio-control blue-text" name="skip-next"><i class="small material-icons">skip_next</i></a>
-        <span class="audio-label grey-text text-lighten-3" name="time"></span>
+        <span class="audio-label" name="time"></span>
         <div class="margin-left">
           <a href="#playlist" class="modal-trigger blue-text"><i class="material-icons">playlist</i></a>
         </div>
@@ -28,9 +28,9 @@
     <div class="modal-content">
       <h4 class="center-align">Song Library</h4>
       <hr>
-      <% if(files){ %>
+      <% if(songs){ %>
         <ul>
-          <% files.forEach(function(song, songIndex){ %>
+          <% songs.forEach(function(song, songIndex){ %>
             <li>
               <div class="valign-wrapper">
                 <a class='audio-control' href='#!' name='select' for='<%= song.title %>'>

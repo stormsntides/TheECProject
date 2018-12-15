@@ -17,6 +17,22 @@
       </div>
     </div>
     <div class="col s12 l8">
+      <div class="delete-prompt" style="display: none">
+        <div class="card">
+          <div class="card-content">
+            <h2 class="red-text center-align">WARNING!</h2>
+            <hr>
+            <h5 class="center-align">You are about to delete this post.</h5>
+            <p class="center-align">This action is <strong>PERMANENT</strong> and cannot be undone! Are you sure you want to delete this post?</p>
+          </div>
+          <div class="card-action">
+            <form id="delete-<%= blogpost._id %>-form" action="/blog/<%= blogpost._id %>?_method=DELETE" method="POST">
+              <button type="submit" class="btn-flat waves-effect waves-red black-text">Confirm</button>
+              <a href="#!" class="hide-delete btn-flat waves-effect waves-gray black-text" data-target="delete-prompt">Cancel</a>
+            </form>
+          </div>
+        </div>
+      </div>
       <h1><%= blogpost.title %></h1>
       <h5>
           <% var options = {timeZone: "America/New_York", weekday: "long", month: "long", day: "numeric", year: "numeric"} %>
@@ -29,13 +45,23 @@
       <div class="hide-on-large-only">
         <a class="btn-flat blue-text waves-effect" href="/blog"><span class="valign-wrapper flow-text"><i class="material-icons">chevron_left</i> Back</span></a>
       </div>
-      <a class="btn-flat blue-text waves-effect" href="/blog/<%= blogpost._id %>/edit"><span class="valign-wrapper flow-text"><i class="material-icons">edit</i> Edit</span></a>
     </div>
   </div>
 </main>
 
-<% include ../partials/admin/blog/deleteModal %>
+<!-- % include ../partials/admin/blog/deleteModal %> -->
+
 
 <% include ../partials/copyright %>
 <% include ../partials/jquery %>
+
+<script>
+  $(function(){
+    $(".hide-delete").on("click", function(){
+      let dataTarget = "." + $(this).data("target");
+      $(dataTarget).slideToggle();
+    });
+  });
+</script>
+
 <% include ../partials/footer %>

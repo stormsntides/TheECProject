@@ -20,12 +20,18 @@
     <li class="right-align"><a href="/demo/product">Product</a></li>
   </ul>
   <ul id="admin-dropdown" class="dropdown-content">
-    <li class="right-align">Blog Tools</li>
+    <li class="right-align"><a href="#!" class="black-text">Admin Tools</a></li>
     <li class="divider"></li>
-    <li class="right-align"><a href="/blog/new">New Post</a></li>
-    <% if(isSinglePost){ %>
+    <li class="right-align"><a href="/admin/inbox">Inbox</a></li>
+    <li class="right-align"><a href="/admin/logout">Logout</a></li>
+    <li class="divider"></li>
+    <li class="right-align"><a href="#!" class="black-text">Blog Tools</a></li>
+    <li class="divider"></li>
+    <li class="right-align"><a href="/blog/new" class="green-text">New Post</a></li>
+    <% if(allowManagePost){ %>
       <li class="right-align"><a href="/blog/<%= blogpost._id %>/edit">Edit</a></li>
-      <li class="right-align"><a href='#delete-<%= blogpost._id %>-form' class='modal-trigger btn-flat red-text waves-effect waves-red'>Delete</a></li>
+      <!-- <li class="right-align"><a href='#delete-%= blogpost._id %>-form' class='modal-trigger red-text'>Delete</a></li> -->
+      <li class="right-align"><a href="#!" class="hide-delete red-text" data-target="delete-prompt">Delete</a></li>
     <% } %>
   </ul>
   <!-- When using navbar-fixed, side-nav must be outside of it in order to allow links to be clicked -->
@@ -51,12 +57,16 @@
           <a class="collapsible-header">Admin Tools<i class="material-icons">arrow_drop_down</i></a>
           <div class="collapsible-body">
             <ul>
-              <li class="right-align">Blog Tools</li>
+              <li class="right-align"><a href="/admin/inbox" class="teal-text">Inbox</a></li>
+              <li class="right-align"><a href="/admin/logout" class="teal-text">Logout</a></li>
               <li class="divider"></li>
-              <li class="right-align"><a href="/blog/new">New Post</a></li>
-              <% if(isSinglePost){ %>
-                <li class="right-align"><a href="/blog/<%= blogpost._id %>/edit">Edit</a></li>
-                <li class="right-align"><a href='#delete-<%= blogpost._id %>-form' class='modal-trigger btn-flat red-text waves-effect waves-red'>Delete</a></li>
+              <li class="left-align"><a href="#!" class="black-text">Blog Tools</a></li>
+              <li class="divider"></li>
+              <li class="right-align"><a href="/blog/new" class="green-text">New Post</a></li>
+              <% if(allowManagePost){ %>
+                <li class="right-align"><a href="/blog/<%= blogpost._id %>/edit" class="teal-text">Edit</a></li>
+                <!-- <li class="right-align"><a href='#delete-%= blogpost._id %>-form' class='modal-trigger red-text'>Delete</a></li> -->
+                <li class="right-align"><a href="#!" class="hide-delete red-text" data-target="delete-prompt">Delete</a></li>
               <% } %>
             </ul>
           </div>

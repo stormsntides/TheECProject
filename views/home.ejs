@@ -7,22 +7,33 @@
 <div class="full-height flex-center">
   <a class="flow-text landing-link" href="/blog">Blogs</a>
   <a class="flow-text landing-link" href="/about">About</a>
-  <a class="flow-text landing-link demo-dropdown" href="#!">Demos</a>
+  <a class="flow-text landing-link dropdown" data-target="demo" href="#!">Demos</a>
   <!-- Cascade dropdown -->
-  <div class="slide-out">
+  <div class="demo slide-out">
     <div class="flex-center">
       <a class="flow-text landing-link" href="/demo/johnny"><i class="material-icons">chevron_right</i> Johnny</a>
       <a class="flow-text landing-link" href="/demo/product"><i class="material-icons">chevron_right</i> Product</a>
     </div>
   </div>
+  <% if(isAdmin) { %>
+    <a class="flow-text landing-link dropdown" data-target="admin" href="#!">Admin</a>
+    <!-- Cascade dropdown -->
+    <div class="admin slide-out">
+      <div class="flex-center">
+        <a class="flow-text landing-link" href="/admin/inbox"><i class="material-icons">chevron_right</i> Inbox</a>
+        <a class="flow-text landing-link" href="/admin/logout"><i class="material-icons">chevron_right</i> Logout</a>
+      </div>
+    </div>
+  <% } %>
 </div>
 
 <% include ./partials/jquery %>
 
 <script>
-  $(document).ready(function(){
-    $(".demo-dropdown").on("click", function(){
-      $(".slide-out").slideToggle();
+  $(function(){
+    $(".dropdown").on("click", function(){
+      let dataTarget = "." + $(this).data("target") + ".slide-out";
+      $(dataTarget).slideToggle();
     });
   });
 </script>
