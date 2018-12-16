@@ -1,12 +1,7 @@
 <% include ../partials/headerOpen %>
 
 <% include ../partials/headerClose %>
-
-<% if(isAdmin) { %>
-  <% include ../partials/admin/navbars/adminBlogNavbar %>
-<% } else { %>
-  <% include ../partials/navbar-main %>
-<% } %>
+<% include ../partials/navbar-main %>
 
 <main>
   <div class="row">
@@ -48,9 +43,6 @@
     </div>
   </div>
 </main>
-
-<!-- % include ../partials/admin/blog/deleteModal %> -->
-
 
 <% include ../partials/copyright %>
 <% include ../partials/jquery %>

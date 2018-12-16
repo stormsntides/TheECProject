@@ -5,11 +5,12 @@ var express = require("express"),
     User = require("../models/user");
 
 router.get("/", function(req, res){
-    // check to see if there is a user logged in, then check to see if admin
-    let isAdmin = req.user ? middleware.verifyUserAdminKey(req.user.adminKey) : false;
-    // render page with isAdmin data and all blogposts sorted
+    let userType = "none";
+    if(req.user){
+      userType = middleware.verifyUserAdminKey(req.user.adminKey) ? "admin" : "user";
+    }
     res.render("home", {
-      isAdmin: isAdmin
+      userType: userType
     });
 });
 

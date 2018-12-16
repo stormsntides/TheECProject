@@ -18,6 +18,7 @@ router.get("/", function(req, res){
       // render page with isAdmin data and all blogposts sorted
       res.render("blog/index", {
         isAdmin: isAdmin,
+        adminNavContext: "blog",
         allowManagePost: false,
         blogposts: allBlogposts.sort(function(a, b){
           return a.order - b.order;
@@ -29,11 +30,9 @@ router.get("/", function(req, res){
 
 // NEW
 router.get("/new", middleware.isLoggedIn, middleware.isAdmin, function(req, res){
-  // check to see if there is a user logged in, then check to see if admin
-  let isAdmin = req.user ? middleware.verifyUserAdminKey(req.user.adminKey) : false;
-  // render page with isAdmin data
   res.render("blog/new", {
-    isAdmin: isAdmin,
+    isAdmin: true,
+    adminNavContext: "blog",
     allowManagePost: false
   });
 });
@@ -77,6 +76,7 @@ router.get("/:id", function(req, res){
       // render page with isAdmin data and found blogpost
       res.render("blog/show", {
         isAdmin: isAdmin,
+        adminNavContext: "blog",
         allowManagePost: true,
         blogpost: foundBlogpost
       });
@@ -92,11 +92,9 @@ router.get("/:id/edit", middleware.isLoggedIn, middleware.isAdmin, function(req,
       req.flash("error", "Unable to retrieve blog post. See server logs for details.");
       res.redirect("/blog");
     } else {
-      // check to see if there is a user logged in, then check to see if admin
-      let isAdmin = req.user ? middleware.verifyUserAdminKey(req.user.adminKey) : false;
-      // render page with isAdmin data and found blogpost
       res.render("blog/edit", {
-        isAdmin: isAdmin,
+        isAdmin: true,
+        adminNavContext: "blog",
         allowManagePost: false,
         blogpost: foundBlogpost
       });

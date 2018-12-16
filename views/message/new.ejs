@@ -1,0 +1,68 @@
+<% include ../partials/headerOpen %>
+
+<% include ../partials/headerClose %>
+<% include ../partials/navbar-main %>
+
+<main>
+  <div class="container">
+    <h1>Contact Me</h1>
+    <form action="/message" method="POST">
+      <div class="row">
+        <div class="col s12 m6">
+          <div class="input-field">
+            <input type="text" id="author" class="validate" name="message[author]">
+            <label for="author">Your Name</label>
+          </div>
+        </div>
+        <div class="col s12 m6">
+          <div class="input-field">
+            <input type="email" id="email" class="validate" name="message[email]">
+            <label for="email">Your Email</label>
+          </div>
+        </div>
+        <div class="col s12">
+          <div class="input-field">
+            <input type="text" id="subject" name="message[subject]">
+            <label for="subject">Subject</label>
+          </div>
+        </div>
+        <div class="col s12">
+          <div class="input-field">
+            <textarea id="message" class="materialize-textarea" name="message[message]"></textarea>
+            <label for="message">Message</label>
+          </div>
+        </div>
+        <div class="col s12">
+          <button class="btn waves-effect waves-light"><span class="valign-wrapper"><i class="material-icons">send</i> Send</span></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</main>
+
+<% include ../partials/jquery %>
+<% include ../partials/flash %>
+<% include ../partials/copyright %>
+
+<script>
+  $(function(){
+  $("#message").keydown(function(e) {
+      if(e.keyCode === 9) { // tab was pressed
+          // get caret position/selection
+          let start = this.selectionStart;
+          let end = this.selectionEnd;
+          let $this = $(this);
+          let value = $this.val();
+          // set textarea value to: text before caret + tab + text after caret
+          $this.val(value.substring(0, start)
+                      + "\t"
+                      + value.substring(end));
+          // put caret at right position again (add one for the tab)
+          this.selectionStart = this.selectionEnd = start + 1;
+          // prevent the focus loss
+          e.preventDefault();
+      }
+  });
+</script>
+
+<% include ../partials/footer %>

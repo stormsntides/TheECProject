@@ -1,0 +1,30 @@
+<li class="right-align"><a href="/message" class="teal-text">Inbox</a></li>
+<li class="right-align"><a href="/user/logout" class="teal-text">Logout</a></li>
+<li class="divider"></li>
+<!-- Blog context -->
+<% if(adminNavContext === "blog") { %>
+  <li class="left-align"><a href="#!" class="black-text">Blog Tools</a></li>
+  <li class="divider"></li>
+  <li class="right-align"><a href="/blog/new" class="green-text">New Post</a></li>
+  <% if(allowManagePost){ %>
+    <li class="right-align"><a href="/blog/<%= blogpost._id %>/edit" class="teal-text">Edit</a></li>
+    <li class="right-align"><a href="#!" class="hide-delete red-text" data-target="delete-prompt">Delete</a></li>
+  <% } %>
+<% } %>
+<!-- Audio context -->
+<% if(adminNavContext === "audio") { %>
+  <li class="left-align"><a href="#!" class="black-text">Audio Tools</a></li>
+  <li class="divider"></li>
+  <li class="right-align"><a href="/audio" class="teal-text">Manage Songs</a></li>
+  <% if(allowManageAudio){ %>
+    <li class="right-align"><a href="#upload-file" class="modal-trigger green-text">Upload Song</a></li>
+  <% } %>
+<% } %>
+<!-- Message context -->
+<% if(adminNavContext === "message") { %>
+  <li class="left-align"><a href="#!" class="black-text">Message Tools</a></li>
+  <li class="divider"></li>
+  <% if(allowManageMessage){ %>
+    <li class="right-align"><a href="#!" class="hide-delete red-text" data-target="delete-prompt">Delete</a></li>
+  <% } %>
+<% } %>

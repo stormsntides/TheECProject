@@ -15,13 +15,21 @@
       <a class="flow-text landing-link" href="/demo/product"><i class="material-icons">chevron_right</i> Product</a>
     </div>
   </div>
-  <% if(isAdmin) { %>
+  <% if(userType === "admin") { %>
     <a class="flow-text landing-link dropdown" data-target="admin" href="#!">Admin</a>
     <!-- Cascade dropdown -->
     <div class="admin slide-out">
       <div class="flex-center">
-        <a class="flow-text landing-link" href="/admin/inbox"><i class="material-icons">chevron_right</i> Inbox</a>
-        <a class="flow-text landing-link" href="/admin/logout"><i class="material-icons">chevron_right</i> Logout</a>
+        <a class="flow-text landing-link" href="/message"><i class="material-icons">chevron_right</i> Inbox</a>
+        <a class="flow-text landing-link" href="/user/logout"><i class="material-icons">chevron_right</i> Logout</a>
+      </div>
+    </div>
+  <% } else if(userType === "user") { %>
+    <a class="flow-text landing-link dropdown" data-target="user" href="#!">User</a>
+    <!-- Cascade dropdown -->
+    <div class="user slide-out">
+      <div class="flex-center">
+        <a class="flow-text landing-link" href="/user/logout"><i class="material-icons">chevron_right</i> Logout</a>
       </div>
     </div>
   <% } %>

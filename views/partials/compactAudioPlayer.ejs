@@ -20,8 +20,13 @@
             <a class="audio-control orange-text" name="skip-next"><i class="small material-icons">skip_next</i></a>
           </td>
           <td>
-            <a href="#!" class="info-hide blue-text" data-target="playlist"><i class="material-icons">playlist</i></a>
+            <a href="#!" class="info-hide blue-text" data-target="playlist"><i class="material-icons">queue_music</i></a>
           </td>
+          <% if(isAdmin){ %>
+            <td>
+              <a href="/audio" class="blue-text"><i class="material-icons">library_music</i></a>
+            </td>
+          <% } %>
         </tr>
       </tbody>
     </table>
@@ -45,7 +50,7 @@
               <p>Off of the album "<%= song.album %>", Produced by <%= song.producer %></p>
               <p>"<%= song.description %>"</p>
             </div>
-            <audio src='/admin/audio/stream/<%= song.filename %>' preload="metadata" type="<%= song.contentType %>" data-title='<%= song.title %>' data-album="<%= song.album %>" data-artist="<%= song.artist %>" data-producer="<%= song.producer %>" data-duration="<%= song.duration %>"></audio>
+            <audio src='/audio/stream/<%= song.filename %>' preload="metadata" type="<%= song.contentType %>" data-title='<%= song.title %>' data-album="<%= song.album %>" data-artist="<%= song.artist %>" data-producer="<%= song.producer %>" data-duration="<%= song.duration %>"></audio>
           </li>
         <% }); %>
       </ul>

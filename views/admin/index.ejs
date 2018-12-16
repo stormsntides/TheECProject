@@ -1,66 +1,17 @@
 <% include ../partials/admin/adminHeaderOpen %>
 
 <% include ../partials/headerClose %>
-<% include ../partials/admin/navbar-admin %>
+<% include ../partials/navbar-main %>
 
-    <main>
-      <!-- Unseen menus/forms not located inside of navbar -->
-      <div id="unseen">
-        <!-- Modal Structure add -->
-        <% include ../partials/admin/newBlogpostModal %>
-        <% include ../partials/admin/newAudioModal %>
-        <!-- Modal Structure edit -->
-        <% include ../partials/admin/editBlogpostModal %>
-        <% include ../partials/admin/editAudioModal %>
-        <!-- Modal Structure delete -->
-        <% include ../partials/admin/deleteBlogpostModal %>
-        <% include ../partials/admin/deleteMessageModal %>
-        <% include ../partials/admin/deleteAudioModal %>
-      </div> <!-- end Unseen menus/forms -->
-      <div class="row">
-        <div class="col s12 m2">
-          <div id="actions"></div>
-        </div>
-        <div class="col s12 m8">
-          <form id="search-form">
-            <div class="input-field">
-              <i class="material-icons prefix grey-text text-darken-3">search</i>
-              <input id="search" type="text" name="search" class="validate center-align grey-text text-darken-3" autocomplete="off">
-              <label for="search">Enter Search</label>
-            </div>
-          </form>
-          <!-- <div id='results' class='row'>
-            % blogposts.forEach(function(blogpost){ %>
-              <article class="col s12 m6 l4">
-                <a href="/blog/%= blogpost._id %>">
-                  <div class="card small hoverable">
-                    <div class="card-content">
-                      <span class="card-title black-text">%= blogpost.title %></span>
-                      <p class="grey-text text-darken-3">
-                        %= blogpost.content.summary %>
-                      </p>
-                    </div>
-                    <div class="card-action">
-                      % var options = {timeZone: "America/New_York", weekday: "short", month: "short", day: "numeric", year: "numeric"} %>
-                      <span class="deep-orange-text text-darken-2">%= blogpost.date.toLocaleString("en-US", options) %></span>
-                    </div>
-                  </div>
-                </a>
-              </article>
-            % }); %>
-          </div> -->
-          <ul class="pagination"></ul>
-        </div>
-      </div>
-    </main>
+<main class="container">
+  <h1>Admin Dashboard</h1>
+  <hr>
+  <p>Welcome to the admin section of The Ernest Cates Project. As an admin, you have access to the contextual "Admin Tools" menu which can be found in the navbar. Depending on the page that you are currently viewing, you will be able to access special tools to help you add, edit, and delete blogposts, songs, or messages.</p>
+  <p>Use these special powers wisely and make this website the most entertaining place it can possibly be! And be responsible. Any posts or audio that is found to be unsavory will be removed immediately. Thanks!</p>
+  <p>Ernest Cates</p>
+</main>
 
-    <% include ../partials/jquery %>
-    <% include ../partials/flash %>
-    <% include ../partials/copyright %>
-
-    <!-- Scripts -->
-    <script src="/public/scripts/adminScripts/adminToolScript.js"></script>
-    <script src="/public/scripts/adminScripts/blogToolScript.js"></script>
-    <script src="/public/scripts/adminScripts/searchToolScript.js"></script>
-  </body>
-</html>
+<% include ../partials/jquery %>
+<% include ../partials/flash %>
+<% include ../partials/copyright %>
+<% include ../partials/footer %>

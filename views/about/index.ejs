@@ -1,8 +1,6 @@
 <% include ../partials/headerOpen %>
 
 <link rel="stylesheet" type="text/css" href="/public/stylesheets/aboutStyles/about-styles.css">
-<!-- <link rel="stylesheet" type="text/css" href="/public/customLibraries/audioPlayer/audioStyle.css">
-<link rel="stylesheet" href="/public/customLibraries/rangeInput/rangeStyle.css"> -->
 <link rel="stylesheet" href="/public/customLibraries/audioPlayerVanilla/audioStyleVanilla.css">
 
 <% include ../partials/headerClose %>
@@ -44,7 +42,6 @@
             <span class="white">Music</span>
           </div>
           <div class="brace-content push-down">
-            <!-- % include ../partials/audioPlayer %> -->
             <br>
             <% include ../partials/compactAudioPlayer %>
           </div>
@@ -78,8 +75,10 @@
             <span class="white">Contact</span>
           </div>
           <div class="brace-content">
-            <p>I can be reached through any of my social-media accounts (links located in the footer). Send me a message if you would like to collaborate on a project, have me work on the front end of your website, or get a copy of my resume. I am an open book! I will respond as soon as I am able to. In the meantime, keep an eye on this page for updates in the <a href="#portfolio">portfolio</a> section. I will be adding more to it in the coming months.</p>
+            <!-- <p>I can be reached through any of my social-media accounts (links located in the footer). Send me a message if you would like to collaborate on a project, have me work on the front end of your website, or get a copy of my resume. I am an open book! I will respond as soon as I am able to. In the meantime, keep an eye on this page for updates in the <a href="#portfolio">portfolio</a> section. I will be adding more to it in the coming months.</p> -->
+            <p>If you would like to collaborate on a project, have me work on the front end of your website, or get a copy of my resume, then please send me a message using the contact form below. I will respond as soon as I am able to. Thank you!</p>
             <p><strong><em>Please do not send spam messages. I am happy to reply to serious inquiries.</em></strong></p>
+            <% include ../partials/message/messageForm %>
           </div>
         </div>
       </div>
@@ -111,6 +110,7 @@
 
 <% include ../partials/copyright %>
 <% include ../partials/jquery %>
+<% include ../partials/flash %>
 
 <script>
   $(function(){
@@ -124,8 +124,6 @@
   });
 </script>
 
-<!-- <script src="/public/customLibraries/rangeInput/rangeScript.js"></script>
-<script src="/public/customLibraries/audioPlayer/audioScript.js"></script> -->
 <script src="/public/customLibraries/audioPlayerVanilla/audioScriptVanilla.js"></script>
 
 <% include ../partials/footer %>
