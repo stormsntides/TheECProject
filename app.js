@@ -17,7 +17,8 @@ var indexRoutes = require("./routes/index"),
     demoRoutes = require("./routes/demo"),
     adminRoutes = require("./routes/admin"),
     audioRoutes = require("./routes/audio"),
-    messageRoutes = require("./routes/message");
+    messageRoutes = require("./routes/message"),
+    userRoutes = require("./routes/user");
 
 var PORT = process.env.PORT || "8081",
     DATABASEURL = process.env.DATABASEURL || "mongodb://testdata_admin:TheECProject_Data@ds155288.mlab.com:55288/ec_testdata";
@@ -63,8 +64,9 @@ app.use("/blog", blogRoutes);
 app.use("/about", aboutRoutes);
 app.use("/demo", demoRoutes);
 app.use("/admin", adminRoutes);
-app.use("/admin/audio", audioRoutes);
-app.use("/admin/inbox", messageRoutes);
+app.use("/audio", audioRoutes);
+app.use("/message", messageRoutes);
+app.use("/user", userRoutes);
 
 app.listen(PORT, process.env.IP, function(){
     console.log("ECP server is running!");

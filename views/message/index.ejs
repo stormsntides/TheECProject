@@ -1,7 +1,7 @@
-<% include ../../partials/admin/adminHeaderOpen %>
+<% include ../partials/headerOpen %>
 
-<% include ../../partials/headerClose %>
-<% include ../../partials/admin/navbar-admin %>
+<% include ../partials/headerClose %>
+<% include ../partials/navbar-main %>
 
     <main>
       <div class="row">
@@ -10,7 +10,7 @@
           <div id='messages' class='row'>
             <div class='collection'>
               <% messages.forEach(function(message){ %>
-                <a href='/admin/inbox/<%= message._id %>' class="collection-item">
+                <a href='/message/<%= message._id %>' class="collection-item">
                   <span class="truncate"><%= message.author %>: "<%= message.subject %>" -- <em class="grey-text lighten-2"><%= message.message %></em>
                     <span class="secondary-content">
                       <% var options = {timeZone: "America/New_York", weekday: "short", month: "short", day: "numeric", year: "numeric"} %>
@@ -25,9 +25,9 @@
       </div>
     </main>
 
-    <% include ../../partials/jquery %>
-    <% include ../../partials/flash %>
-    <% include ../../partials/copyright %>
+<% include ../partials/jquery %>
+<% include ../partials/flash %>
+<% include ../partials/copyright %>
 
     <script>
       $(function(){
@@ -42,5 +42,4 @@
       });
     </script>
 
-  <body>
-<html>
+<% include ../partials/footer %>

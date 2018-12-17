@@ -1,0 +1,31 @@
+<form action="/message" method="POST">
+  <div class="row">
+    <div class="col s12 m6">
+      <div class="input-field">
+        <input type="text" id="author" class="validate" name="message[author]">
+        <label for="author">Your Name</label>
+      </div>
+    </div>
+    <div class="col s12 m6">
+      <div class="input-field">
+        <input type="email" id="email" class="validate" name="message[email]">
+        <label for="email">Your Email</label>
+      </div>
+    </div>
+    <div class="col s12">
+      <div class="input-field">
+        <input type="text" id="subject" name="message[subject]">
+        <label for="subject">Subject</label>
+      </div>
+    </div>
+    <div class="col s12">
+      <div class="input-field">
+        <textarea id="message" class="materialize-textarea" name="message[message]"></textarea>
+        <label for="message">Message</label>
+      </div>
+    </div>
+    <div class="col s12">
+      <button class="btn waves-effect waves-light"><span class="valign-wrapper"><i class="material-icons">send</i> Send</span></button>
+    </div>
+  </div>
+</form>
