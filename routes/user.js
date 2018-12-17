@@ -10,7 +10,12 @@ var express = require("express"),
 // INDEX
 router.get("/", function(req, res) {
   // no dedicated index page yet; have to think of something
-  res.redirect("/user/login");
+  // res.redirect("/user/login");
+  if(req.user){
+    req.flash("warning", "You must log out before logging in as a new user.");
+    res.redirect("/");
+  }
+  res.render("user/index", {isAdmin: false});
 });
 
 router.get("/login", function(req, res){
