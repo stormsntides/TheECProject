@@ -31,14 +31,12 @@ app.use("/public", express.static(__dirname + "/public"));
 app.use("/productSearchPublic", express.static(__dirname + "/demos/productSearch/public"));
 app.use("/johnnyPublic", express.static(__dirname + "/demos/johnny/public"));
 app.use(methodOverride("_method"));
-app.use(flash()); //NEW LINE OF CODE 3/28/2018
+app.use(flash());
 
 // userSeed(); // remove in production
 // blogSeed(); // remove in production
 // productSeed(); // remove in production
 
-// NEW CODE BELOW 3/28/2018
-//change the secret to something that can be placed in an environment variable
 app.use(require("express-session")({
     secret: process.env.PASSPORTSECRET || "Local Env secret message.",
     resave: false,
@@ -57,7 +55,6 @@ app.use(function(req, res, next){
     res.locals.flashWarning = req.flash("warning");
     next();
 });
-//NEW CODE ABOVE
 
 app.use(indexRoutes);
 app.use("/blog", blogRoutes);
