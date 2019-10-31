@@ -13,7 +13,7 @@ var express = require("express"),
 
 // consider creating an audio only database
 const DATABASEURL = process.env.AUDIO_DATABASEURL || "mongodb://testdata_admin:TheECProject_Data@ds155288.mlab.com:55288/ec_testdata";
-const conn = mongoose.createConnection(DATABASEURL, {useNewUrlParser: true});
+const conn = mongoose.createConnection(DATABASEURL, {useNewUrlParser: true, useUnifiedTopology: true});
 
 let gfs;
 conn.once("open", function(){

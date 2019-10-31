@@ -23,7 +23,7 @@ var indexRoutes = require("./routes/index"),
 var PORT = process.env.PORT || "8081",
     DATABASEURL = process.env.DATABASEURL || "mongodb://testdata_admin:TheECProject_Data@ds155288.mlab.com:55288/ec_testdata";
 
-mongoose.connect(DATABASEURL, {useNewUrlParser: true});
+mongoose.connect(DATABASEURL, {useNewUrlParser: true, useUnifiedTopology: true});
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -69,5 +69,5 @@ app.use("/message", messageRoutes);
 app.use("/user", userRoutes);
 
 app.listen(PORT, process.env.IP, function(){
-    console.log("ECP server is running!");
+    console.log("ECP server is running! Use localhost:8081 to access during development.");
 });
