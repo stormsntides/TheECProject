@@ -61,7 +61,7 @@ router.post("/", function(req, res){
     } else {
       req.flash("success", "Message \"" + message.subject + "\" sent!");
     }
-    res.redirect("/about");
+    res.redirect("/");
   });
 });
 

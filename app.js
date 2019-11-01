@@ -13,8 +13,7 @@ var express = require("express"),
 
 var indexRoutes = require("./routes/index"),
     blogRoutes = require("./routes/blog"),
-    aboutRoutes = require("./routes/about"),
-    demoRoutes = require("./routes/demo"),
+    scheduleRoutes = require("./routes/schedule"),
     adminRoutes = require("./routes/admin"),
     audioRoutes = require("./routes/audio"),
     messageRoutes = require("./routes/message"),
@@ -28,8 +27,6 @@ mongoose.connect(DATABASEURL, {useNewUrlParser: true, useUnifiedTopology: true})
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use("/public", express.static(__dirname + "/public"));
-app.use("/productSearchPublic", express.static(__dirname + "/demos/productSearch/public"));
-app.use("/johnnyPublic", express.static(__dirname + "/demos/johnny/public"));
 app.use(methodOverride("_method"));
 app.use(flash());
 
@@ -58,8 +55,7 @@ app.use(function(req, res, next){
 
 app.use(indexRoutes);
 app.use("/blog", blogRoutes);
-app.use("/about", aboutRoutes);
-app.use("/demo", demoRoutes);
+app.use("/schedule", scheduleRoutes);
 app.use("/admin", adminRoutes);
 app.use("/audio", audioRoutes);
 app.use("/message", messageRoutes);

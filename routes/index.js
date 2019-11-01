@@ -9,7 +9,7 @@ router.get("/", function(req, res){
     if(req.user){
       userType = middleware.verifyUserAdminKey(req.user.adminKey) ? "admin" : "user";
     }
-    res.render("home", {
+    res.render("home/index", {
       userType: userType
     });
 });
