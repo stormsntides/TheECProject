@@ -15,7 +15,6 @@ var indexRoutes = require("./routes/index"),
     blogRoutes = require("./routes/blog"),
     scheduleRoutes = require("./routes/schedule"),
     adminRoutes = require("./routes/admin"),
-    audioRoutes = require("./routes/audio"),
     messageRoutes = require("./routes/message"),
     userRoutes = require("./routes/user");
 
@@ -57,7 +56,6 @@ app.use(indexRoutes);
 app.use("/blog", blogRoutes);
 app.use("/schedule", scheduleRoutes);
 app.use("/admin", adminRoutes);
-app.use("/audio", audioRoutes);
 app.use("/message", messageRoutes);
 app.use("/user", userRoutes);
 

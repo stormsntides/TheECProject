@@ -18,3 +18,26 @@ main {
 .margin-left {
 	margin-left: auto;
 }
+
+.underline {
+	text-decoration: underline;
+}
+
+.read-status {
+	margin-right: 10px;
+	padding-right: 10px;
+	border-right: 2px solid #e0e0e0;
+}
+
+.blog-card {
+	border-left: 2px solid black;
+	border-right: 2px solid black;
+	border-radius: 5px;
+	padding: 0 15px;
+	margin: 10px 0;
+	min-height: 200px;
+}
+
+.recent-blog {
+	border-right: 2px solid #e64a19;
+}

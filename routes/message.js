@@ -6,7 +6,7 @@ var express = require("express"),
 
 // INDEX
 router.get("/", middleware.isLoggedIn, middleware.isAdmin, function(req, res){
-  Message.find({}, "author subject message date", function(err, allMessages){
+  Message.find({}, function(err, allMessages){
     if(err){
       console.log(err);
     } else {
@@ -54,6 +54,7 @@ router.get("/:id", middleware.isLoggedIn, middleware.isAdmin, function(req, res)
 router.post("/", function(req, res){
   let message = req.body.message;
   message.date = new Date();
+  message.read = false;
   Message.create(message, function(err){
     if(err){
       console.log(err);
@@ -62,6 +63,24 @@ router.post("/", function(req, res){
       req.flash("success", "Message \"" + message.subject + "\" sent!");
     }
     res.redirect("/");
+  });
+});
+
+// UPDATE
+router.put("/:id&:markAs", middleware.isLoggedIn, middleware.isAdmin, function(req, res){
+  let isRead = req.params.markAs === "read";
+  Message.findByIdAndUpdate(req.params.id, {read: isRead}, function(err, updatedBlogpost){
+    if(err){
+      console.log(err);
+      req.flash("error", "Unable to update message read status. See server logs for details.");
+    }/* else {
+      req.flash("success", "Message marked as " + req.params.markAs + ".");
+    }*/
+    if(isRead){
+      res.redirect("/message/" + req.params.id);
+    } else {
+      res.redirect("/message");
+    }
   });
 });
 

@@ -39,6 +39,11 @@
               </div>
             </div>
           </div>
+          <div class="hide">
+            <form action="/message/<%= message._id %>&unread?_method=PUT" method="POST">
+              <button class="unread-message-submit" type="submit">Submit</button>
+            </form>
+          </div>
           <h2><%= message.author %> says, "<%= message.subject %>"</h2>
           <h4>Email: <%= message.email %></h4>
           <p class="flow-text"><%= message.message %></p>
@@ -76,6 +81,10 @@
         $(".hide-delete").on("click", function(){
           let dataTarget = "." + $(this).data("target");
           $(dataTarget).slideToggle();
+        });
+        $(".mark-unread").on("click", function(){
+          let $submitBtn = $(".unread-message-submit");
+          $submitBtn.click();
         });
       });
     </script>

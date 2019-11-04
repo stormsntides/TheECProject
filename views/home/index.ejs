@@ -1,7 +1,6 @@
 <% include ../partials/headerOpen %>
 
-<link rel="stylesheet" type="text/css" href="/public/stylesheets/aboutStyles/about-styles.css">
-<link rel="stylesheet" href="/public/customLibraries/audioPlayerVanilla/audioStyleVanilla.css">
+<link rel="stylesheet" type="text/css" href="/public/stylesheets/home-styles.css">
 
 <% include ../partials/headerClose %>
 <% include ../partials/navbar-main %>
@@ -32,7 +31,13 @@
           <div class="brace-title">
             <span class="white">About</span>
           </div>
-          <p class="brace-content">I am a musician and songwriter. I create musical content primarily in the metal genre.</p>
+          <div class="brace-content">
+            <p>I am a musician and songwriter that creates musical content primarily in the metal genre. I have been involved with music for nearly two decades and spent most of that time playing guitar in various groups. My talents are not limited to guitar and I am frequently behind the mic on stage and in the studio. When I am not playing or working on music, I can be found streaming video games or checking out the new local cuisine.</p>
+            <p>I want to use this website as a way to showcase my work and ideas about music. I will be writing about my experiences in music which can be found on my <a href="/blog">updates</a> page. Each post will contain excerpts about my own goals, works, and events along with music reviews and links to podcasts/videos. In general, anything related to music will be posted on this site.</p>
+            <p>My music can be enjoyed down below in the <a href="#music">music section</a>. Any shows and events that I have coming up can be viewed over on my <a href="/schedule">current schedule page</a> which will be updated frequently. And most important of all, anyone can get in <a href="#contact">contact with me</a> down below. I am happy to talk about anything to do with music, video games, or life experiences.</p>
+            <p>Thanks for taking the time to check out everything I have going on. I look forward to hearing from you!</p>
+            <p><em>-Ernest Cates</em></p>
+          </div>
         </div>
       </div>
       <div id="music" class="section scrollspy">
@@ -41,31 +46,8 @@
             <span class="white">Music</span>
           </div>
           <div class="brace-content push-down">
-            <br>
-            <% include ../partials/compactAudioPlayer %>
+            <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/913657513&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
           </div>
-        </div>
-      </div>
-      <div id="portfolio" class="section scrollspy">
-        <div class="brace">
-          <div class="brace-title">
-            <span class="white">Portfolio</span>
-          </div>
-          <p class="brace-content">You can check out the websites that I've created or helped develop here. Just click on the image and it will take you to the web page!</p>
-          <ul id="website-image-list">
-            <li>
-              <a href="http://bigernandandy.herokuapp.com/" target="_blank"><img class="hoverable" src="/public/media/images/bigernandandy_ss.png"></a>
-            </li>
-            <li>
-              <a href="https://codepen.io/stormsntides/full/EoZGdK/" target="_blank"><img class="hoverable" src="/public/media/images/design_ss.png"></a>
-            </li>
-            <li>
-              <a href="https://codepen.io/stormsntides/full/qpjayW/" target="_blank"><img class="hoverable" src="/public/media/images/weather_ss.jpg"></a>
-            </li>
-            <li>
-              <a href="https://codepen.io/stormsntides/full/opGJby/" target="_blank"><img class="hoverable" src="/public/media/images/wiki_ss.png"></a>
-            </li>
-          </ul>
         </div>
       </div>
       <div id="contact" class="section scrollspy">
@@ -74,8 +56,7 @@
             <span class="white">Contact</span>
           </div>
           <div class="brace-content">
-            <!-- <p>I can be reached through any of my social-media accounts (links located in the footer). Send me a message if you would like to collaborate on a project, have me work on the front end of your website, or get a copy of my resume. I am an open book! I will respond as soon as I am able to. In the meantime, keep an eye on this page for updates in the <a href="#portfolio">portfolio</a> section. I will be adding more to it in the coming months.</p> -->
-            <p>If you would like to collaborate on a project, have me work on the front end of your website, or get a copy of my resume, then please send me a message using the contact form below. I will respond as soon as I am able to. Thank you!</p>
+            <p>If you would like to collaborate on a project, have some other ideas for content creation, or just want to chat, then please send me a message using the contact form below. I will respond as soon as I am able to. Thank you!</p>
             <p><strong><em>Please do not send spam messages. I am happy to reply to serious inquiries.</em></strong></p>
             <% include ../partials/message/messageForm %>
           </div>
@@ -87,7 +68,6 @@
         <li><a href="#top">Ernest Cates</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#music">Music</a></li>
-        <li><a href="#portfolio">Portfolio</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </div>
@@ -102,7 +82,6 @@
     <li class="waves-effect waves-light"><a href="#top">Ernest Cates</a></li>
     <li class="waves-effect waves-light"><a href="#about">About</a></li>
     <li class="waves-effect waves-light"><a href="#music">Music</a></li>
-    <li class="waves-effect waves-light"><a href="#portfolio">Portfolio</a></li>
     <li class="waves-effect waves-light"><a href="#contact">Contact</a></li>
   </ul>
 </div>
@@ -122,7 +101,5 @@
     });
   });
 </script>
-
-<script src="/public/customLibraries/audioPlayerVanilla/audioScriptVanilla.js"></script>
 
 <% include ../partials/footer %>

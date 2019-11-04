@@ -2,7 +2,6 @@ var express = require("express"),
     router = express.Router(),
     middleware = require("../middleware/login"),
     Blogpost = require("../models/blogpost"),
-    Song = require("../models/song"),
     Message = require("../models/message"),
     passport = require("passport"),
     User = require("../models/user");
@@ -20,8 +19,7 @@ router.get("/info", function(req, res){
 router.get("/stats", async function(req, res){
   let counts = {
     blogs: await Blogpost.estimatedDocumentCount().exec(),
-    songs: await Song.estimatedDocumentCount().exec(),
-    mesages: await Message.estimatedDocumentCount().exec()
+    messages: await Message.estimatedDocumentCount().exec()
   };
   res.json({
     message: "DB contains the following document counts.",

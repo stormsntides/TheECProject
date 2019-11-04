@@ -2,7 +2,6 @@ var express = require("express"),
     router = express.Router(),
     middleware = require("../middleware/login"),
     Blogpost = require("../models/blogpost"),
-    Song = require("../models/song"),
     Message = require("../models/message"),
     passport = require("passport"),
     User = require("../models/user");
