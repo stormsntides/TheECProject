@@ -41,16 +41,10 @@ router.get("/new", middleware.isLoggedIn, middleware.isAdmin, function(req, res)
 router.post("/", middleware.isLoggedIn, middleware.isAdmin, function(req, res){
   let newPost = {
     title: req.body.blogpost.title,
-    content: {
-      summary: req.body.blogpost.summary,
-      full: req.body.blogpost.full
-    },
+    content: req.body.blogpost.content,
     date: new Date(),
     order: req.body.blogpost.order
   };
-
-  console.log("New Blogpost received!");
-  console.log(newPost);
 
   Blogpost.create(newPost, function(err){
     if(err){
@@ -106,15 +100,9 @@ router.get("/:id/edit", middleware.isLoggedIn, middleware.isAdmin, function(req,
 router.put("/:id", middleware.isLoggedIn, middleware.isAdmin, function(req, res){
   let editedPost = {
     title: req.body.blogpost.title,
-    content: {
-      summary: req.body.blogpost.summary,
-      full: req.body.blogpost.full
-    },
+    content: req.body.blogpost.content,
     order: req.body.blogpost.order
   };
-
-  console.log("Edited Blogpost received!");
-  console.log(editedPost);
 
   Blogpost.findByIdAndUpdate(req.params.id, editedPost, function(err, updatedBlogpost){
     if(err){
