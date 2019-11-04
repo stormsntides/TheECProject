@@ -8,12 +8,7 @@ var express = require("express"),
 
 // INDEX
 router.get("/", middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
-  res.render("admin/index");
-});
-
-router.get("/info", function(req, res){
-  let isAdmin = req.user ? middleware.verifyUserAdminKey(req.user.adminKey) : false;
-  res.render("admin/userInfo", {isAdmin: isAdmin});
+  res.redirect("/message");
 });
 
 router.get("/stats", async function(req, res){

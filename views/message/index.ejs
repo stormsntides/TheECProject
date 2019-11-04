@@ -3,70 +3,70 @@
 <% include ../partials/headerClose %>
 <% include ../partials/navbar-main %>
 
-    <main>
-      <div class="row">
-        <div class="col s12 m2"></div>
-        <div class="col s12 m8">
-          <div id='messages' class='row'>
-            <h1>Inbox Dashboard</h1>
-            <% if(messages.length > 0){ %>
-              <% var unreadCount = messages.reduce(function(acc, m){ return acc + (m.read ? 0 : 1); }, 0); %>
-              <h4>Unread Messages: <%= unreadCount %></h4>
-              <div class='collection'>
-              <% messages.forEach(function(message){ %>
-                <form action="/message/<%= message._id %>&read?_method=PUT" method="POST">
-                  <!-- <a href='/message/<= message._id %>' class="collection-item"> -->
-                  <a href="#!" class="collection-item submit-read-message">
-                    <div class="valign-wrapper">
-                      <span class="read-status">
-                        <% if(message.read){ %>
-                          <i class="material-icons small">drafts</i>
-                        <% } else { %>
-                          <i class="material-icons small">mail</i>
-                        <% } %>
-                      </span>
-                      <span class="truncate">
-                        <%= message.author %>: "<%= message.subject %>" -- <em class="grey-text lighten-2"><%= message.message %></em>
-                        <span class="secondary-content">
-                          <% var options = {timeZone: "America/New_York", weekday: "short", month: "short", day: "numeric", year: "numeric"} %>
-                          <strong><%= message.date.toLocaleString("en-US", options) %></strong>
-                        </span>
-                      </span>
-                    </div>
-                  </a>
-                  <button class="read-message-submit hide" type="submit">Submit</button>
-                </form>
-                <% }); %>
-              </div>
-            <% } else { %>
-              <div>
-                <h5 class="center-align">Inbox Empty</h5>
-              </div>
-            <% } %>
+<main>
+  <div class="row">
+    <div class="col s12 m2"></div>
+    <div class="col s12 m8">
+      <div id='messages' class='row'>
+        <h1>Inbox Dashboard</h1>
+        <% if(messages.length > 0){ %>
+          <% var unreadCount = messages.reduce(function(acc, m){ return acc + (m.read ? 0 : 1); }, 0); %>
+          <h4>Unread Messages: <%= unreadCount %></h4>
+          <div class='collection'>
+          <% messages.forEach(function(message){ %>
+            <form action="/message/<%= message._id %>&read?_method=PUT" method="POST">
+              <!-- <a href='/message/<= message._id %>' class="collection-item"> -->
+              <a href="#!" class="collection-item submit-read-message">
+                <div class="valign-wrapper">
+                  <span class="read-status">
+                    <% if(message.read){ %>
+                      <i class="material-icons small">drafts</i>
+                    <% } else { %>
+                      <i class="material-icons small">mail</i>
+                    <% } %>
+                  </span>
+                  <span class="truncate">
+                    <%= message.author %>: "<%= message.subject %>" -- <em class="grey-text lighten-2"><%= message.message %></em>
+                    <span class="secondary-content">
+                      <% var options = {timeZone: "America/New_York", weekday: "short", month: "short", day: "numeric", year: "numeric"} %>
+                      <strong><%= message.date.toLocaleString("en-US", options) %></strong>
+                    </span>
+                  </span>
+                </div>
+              </a>
+              <button class="read-message-submit hide" type="submit">Submit</button>
+            </form>
+            <% }); %>
           </div>
-        </div>
+        <% } else { %>
+          <div>
+            <h5 class="center-align">Inbox Empty</h5>
+          </div>
+        <% } %>
       </div>
-    </main>
+    </div>
+  </div>
+</main>
 
 <% include ../partials/jquery %>
 <% include ../partials/flash %>
 <% include ../partials/copyright %>
 
-    <script>
-      $(function(){
-        $(".button-collapse").sideNav({
-          menuWidth: 240,
-          edge: "right",
-          closeOnClick: true,
-          draggable: true
-        });
-        $(".dropdown-button").dropdown();
-        $('.modal').modal();
-        $(".submit-read-message").on("click", function(){
-          let $submitBtn = $(this).siblings(".read-message-submit");
-          $submitBtn.click();
-        });
-      });
-    </script>
+<script>
+  $(function(){
+    $(".button-collapse").sideNav({
+      menuWidth: 240,
+      edge: "right",
+      closeOnClick: true,
+      draggable: true
+    });
+    $(".dropdown-button").dropdown();
+    $('.modal').modal();
+    $(".submit-read-message").on("click", function(){
+      let $submitBtn = $(this).siblings(".read-message-submit");
+      $submitBtn.click();
+    });
+  });
+</script>
 
 <% include ../partials/footer %>

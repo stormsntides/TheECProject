@@ -25,7 +25,7 @@
                     <span class="deep-orange-text text-darken-2"><%= blogpost.date.toLocaleString("en-US", options) %></span>
                     <p class="grey-text hide-on-med-and-up"><em>(Most Recent ECProject Post)</em></p>
                     <p class="grey-text text-darken-3">
-                      <% var words = blogpost.content.full.split(" "); %>
+                      <% var words = blogpost.content.split(" "); %>
                       <% var summary = words.length > 20 ? words.slice(0, 20).join(" ") + "..." : words.join(" "); %>
                       <%= summary %>
                     </p>
@@ -42,7 +42,7 @@
               <% var options = {timeZone: "America/New_York", weekday: "short", month: "short", day: "numeric", year: "numeric"}; %>
               <span class="deep-orange-text text-darken-2"><%= blogpost.date.toLocaleString("en-US", options) %></span>
               <p class="grey-text text-darken-3">
-                <% var words = blogpost.content.full.split(" "); %>
+                <% var words = blogpost.content.split(" "); %>
                 <% var summary = words.length > 20 ? words.slice(0, 20).join(" ") + "..." : words.join(" "); %>
                 <%= summary %>
               </p>
